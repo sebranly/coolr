@@ -27,9 +27,20 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
         <br />
         <h2>Floor 2</h2>
         <div className="block">
-          {cyan !== Hidden && <ColorDot className="black" color={Cyan} onSelectLevel={onSelectLevel(Cyan)} />}
-          {magenta !== Hidden && <ColorDot className="black" color={Magenta} onSelectLevel={onSelectLevel(Magenta)} />}
-          {yellow !== Hidden && <ColorDot className="black" color={Yellow} onSelectLevel={onSelectLevel(Yellow)} />}
+          {cyan !== Hidden && (
+            <ColorDot className="black" color={Cyan} onSelectLevel={onSelectLevel(Cyan)} miniSave={save.cyan} />
+          )}
+          {magenta !== Hidden && (
+            <ColorDot
+              className="black"
+              color={Magenta}
+              onSelectLevel={onSelectLevel(Magenta)}
+              miniSave={save.magenta}
+            />
+          )}
+          {yellow !== Hidden && (
+            <ColorDot className="black" color={Yellow} onSelectLevel={onSelectLevel(Yellow)} miniSave={save.yellow} />
+          )}
         </div>
       </>
     );
@@ -45,7 +56,7 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
         <br />
         <h2>Floor 3</h2>
         <div className="block">
-          <ColorDot className="black" color={White} onSelectLevel={onSelectLevel(White)} />
+          <ColorDot className="black" color={White} onSelectLevel={onSelectLevel(White)} miniSave={save.white} />
         </div>
       </>
     );
@@ -55,9 +66,9 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
     <>
       <h2>Floor 1</h2>
       <div className="block">
-        <ColorDot className="black" color={Red} onSelectLevel={onSelectLevel(Red)} />
-        <ColorDot className="black" color={Green} onSelectLevel={onSelectLevel(Green)} />
-        <ColorDot className="black" color={Blue} onSelectLevel={onSelectLevel(Blue)} />
+        <ColorDot className="black" color={Red} onSelectLevel={onSelectLevel(Red)} miniSave={save.red} />
+        <ColorDot className="black" color={Green} onSelectLevel={onSelectLevel(Green)} miniSave={save.green} />
+        <ColorDot className="black" color={Blue} onSelectLevel={onSelectLevel(Blue)} miniSave={save.blue} />
       </div>
       {renderLevel2()}
       {renderLevel3()}

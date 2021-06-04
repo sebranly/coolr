@@ -34,7 +34,12 @@ const Notes: React.FC<NotesProps> = (props) => {
     ));
   };
 
-  return <div className="">{renderLogs()}</div>;
+  return (
+    <div className="">
+      <h2>Logs</h2>
+      {renderLogs()}
+    </div>
+  );
 };
 
 export { Notes };

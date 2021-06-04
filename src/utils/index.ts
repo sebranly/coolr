@@ -5,12 +5,12 @@ const getDefaultSave = () => {
 
   const defaultSave: Save = {
     red: Available,
-    green: Available,
-    blue: Available,
+    green: Done,
+    blue: Done,
     cyan: Available,
     magenta: Available,
     yellow: Available,
-    white: Available
+    white: Hidden
   };
 
   return defaultSave;
@@ -57,6 +57,17 @@ const hasLevel3 = (save: Save) => {
   return white !== Hidden;
 };
 
+const getNewLevelsMix2 = (levels: Color[], level: Color) => {
+  const hasLevel = levels.includes(level);
+
+  if (levels.length === 0) return [level];
+  if (levels.length === 1) {
+    return hasLevel ? [] : [...levels, level];
+  }
+
+  return hasLevel ? levels.filter((l) => l !== level) : [level, levels[0]];
+};
+
 const getLevelsText = (levels: Color[]) => {
   if (levels.length === 0) return 'No level is selected';
   if (levels.length === 1) return `Level ${levels[0]} is selected`;
@@ -64,4 +75,16 @@ const getLevelsText = (levels: Color[]) => {
   return `Levels ${levels.join(' ')} are selected`;
 };
 
-export { canMix2, canMix3, getDefaultSave, hasLevel2, hasLevel3, getLevelsText };
+const getResultLevelMix2 = (levels: Color[]) => {
+  if (levels.length !== 2) return undefined;
+
+  const { Red, Green, Blue, Cyan, Magenta, Yellow } = Color;
+
+  if (levels.includes(Red) && levels.includes(Green)) return Yellow;
+  if (levels.includes(Green) && levels.includes(Blue)) return Cyan;
+  if (levels.includes(Red) && levels.includes(Blue)) return Magenta;
+
+  return undefined;
+};
+
+export { getResultLevelMix2, canMix2, canMix3, getDefaultSave, hasLevel2, hasLevel3, getLevelsText, getNewLevelsMix2 };

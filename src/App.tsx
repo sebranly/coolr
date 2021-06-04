@@ -9,24 +9,35 @@ import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 
 import classnames from 'classnames';
-import { getDefaultSave, getLevelsText, canMix2 } from './utils';
+import { getDefaultSave, getLevelsText, canMix2, getNewLevelsMix2, getResultLevelMix2 } from './utils';
 
 const App = () => {
   const [logs, setLogs] = React.useState(['Welcome to Coolr', 'This is a puzzle game']);
 
   const [save, setSave] = React.useState(getDefaultSave());
   const [levels, setLevels] = React.useState<Color[]>([]);
+  const [level, setLevel] = React.useState<Color | undefined>();
 
   const onSelectLevel = (level: Color) => () => {
-    const hasLevel = levels.includes(level);
-
-    let newLevels: Color[];
+    let newLevels: Color[] = [];
 
     if (!canMix2(save)) {
+      const hasLevel = levels.includes(level);
       newLevels = hasLevel ? [] : [level];
-    } else {
-      newLevels = hasLevel ? levels.filter((l) => l !== level) : [...levels, level];
+
+      setLevel(newLevels[0]);
       setLevels(newLevels);
+    } else if (canMix2(save)) {
+      newLevels = getNewLevelsMix2(levels, level);
+      setLevels(newLevels);
+
+      if (newLevels.length === 2) {
+        const resultLevelMix2 = getResultLevelMix2(newLevels);
+
+        setLevel(resultLevelMix2);
+      } else if (newLevels.length < 2) {
+        setLevel(newLevels[0]);
+      }
     }
 
     const levelsText = getLevelsText(newLevels);
@@ -75,6 +86,11 @@ const App = () => {
             <Notes logs={logs} />
           </div>
         </div>
+        {level && (
+          <div className="button">
+            Enter level<div className={classnames('inline', level)}>{` ${level}`}</div>
+          </div>
+        )}
       </div>
     </HelmetProvider>
   );
