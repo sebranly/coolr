@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/coolr/static/css/main.393d5b53.chunk.css",
+    "main.js": "/coolr/static/js/main.17e7732e.chunk.js",
+    "main.js.map": "/coolr/static/js/main.17e7732e.chunk.js.map",
+    "runtime-main.js": "/coolr/static/js/runtime-main.2d6b0860.js",
+    "runtime-main.js.map": "/coolr/static/js/runtime-main.2d6b0860.js.map",
+    "static/css/2.9233ae65.chunk.css": "/coolr/static/css/2.9233ae65.chunk.css",
+    "static/js/2.b45bda6a.chunk.js": "/coolr/static/js/2.b45bda6a.chunk.js",
+    "static/js/2.b45bda6a.chunk.js.map": "/coolr/static/js/2.b45bda6a.chunk.js.map",
+    "index.html": "/coolr/index.html",
+    "precache-manifest.19786c45114b253e2fb68a903c74a60a.js": "/coolr/precache-manifest.19786c45114b253e2fb68a903c74a60a.js",
+    "service-worker.js": "/coolr/service-worker.js",
+    "static/css/2.9233ae65.chunk.css.map": "/coolr/static/css/2.9233ae65.chunk.css.map",
+    "static/css/main.393d5b53.chunk.css.map": "/coolr/static/css/main.393d5b53.chunk.css.map",
+    "static/js/2.b45bda6a.chunk.js.LICENSE.txt": "/coolr/static/js/2.b45bda6a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2d6b0860.js",
+    "static/css/2.9233ae65.chunk.css",
+    "static/js/2.b45bda6a.chunk.js",
+    "static/css/main.393d5b53.chunk.css",
+    "static/js/main.17e7732e.chunk.js"
+  ]
+}
