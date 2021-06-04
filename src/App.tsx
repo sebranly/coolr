@@ -6,13 +6,33 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
 import { Color } from './types';
 import { PuzzleSelection } from './components/PuzzleSelection';
+import { Notes } from './components/Notes';
 
 import classnames from 'classnames';
-import { getDefaultSave } from './utils';
-
-const save = getDefaultSave();
+import { getDefaultSave, getLevelsText, canMix2 } from './utils';
 
 const App = () => {
+  const [logs, setLogs] = React.useState(['Welcome to Coolr', 'This is a puzzle game']);
+
+  const [save, setSave] = React.useState(getDefaultSave());
+  const [levels, setLevels] = React.useState<Color[]>([]);
+
+  const onSelectLevel = (level: Color) => () => {
+    const hasLevel = levels.includes(level);
+
+    let newLevels: Color[];
+
+    if (!canMix2(save)) {
+      newLevels = hasLevel ? [] : [level];
+    } else {
+      newLevels = hasLevel ? levels.filter((l) => l !== level) : [...levels, level];
+      setLevels(newLevels);
+    }
+
+    const levelsText = getLevelsText(newLevels);
+    setLogs([...logs, levelsText]);
+  };
+
   if (isMobile) {
     return (
       <HelmetProvider>
@@ -48,10 +68,12 @@ const App = () => {
       <div className="main">
         <h1 className="white">Coolr</h1>
         <div className="flex">
-          <div className="flex-two">
-            <PuzzleSelection save={save} />
+          <div className="flex-three">
+            <PuzzleSelection onSelectLevel={onSelectLevel} save={save} />
           </div>
-          <div className="flex-one">test text tbd</div>
+          <div className="flex-two">
+            <Notes logs={logs} />
+          </div>
         </div>
       </div>
     </HelmetProvider>

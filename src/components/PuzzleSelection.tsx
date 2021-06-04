@@ -7,11 +7,12 @@ import { hasLevel2, hasLevel3 } from '../utils';
 
 export interface PuzzleSelectionProps {
   className?: string;
+  onSelectLevel: (level: Color) => () => void;
   save: Save;
 }
 
 const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
-  const { className, save } = props;
+  const { className, save, onSelectLevel } = props;
   const { Hidden } = Progress;
   const { Red, Green, Blue, Magenta, Cyan, Yellow, White } = Color;
   const { red, green, blue, magenta, cyan, yellow, white } = save;
@@ -26,9 +27,9 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
         <br />
         <h2>Floor 2</h2>
         <div className="block">
-          {cyan !== Hidden && <ColorDot className="black" color={Cyan} />}
-          {magenta !== Hidden && <ColorDot className="black" color={Magenta} />}
-          {yellow !== Hidden && <ColorDot className="black" color={Yellow} />}
+          {cyan !== Hidden && <ColorDot className="black" color={Cyan} onSelectLevel={onSelectLevel(Cyan)} />}
+          {magenta !== Hidden && <ColorDot className="black" color={Magenta} onSelectLevel={onSelectLevel(Magenta)} />}
+          {yellow !== Hidden && <ColorDot className="black" color={Yellow} onSelectLevel={onSelectLevel(Yellow)} />}
         </div>
       </>
     );
@@ -41,9 +42,10 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
 
     return (
       <>
+        <br />
         <h2>Floor 3</h2>
         <div className="block">
-          <ColorDot className="black" color={White} />
+          <ColorDot className="black" color={White} onSelectLevel={onSelectLevel(White)} />
         </div>
       </>
     );
@@ -53,9 +55,9 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
     <>
       <h2>Floor 1</h2>
       <div className="block">
-        <ColorDot className="black" color={Red} />
-        <ColorDot className="black" color={Green} />
-        <ColorDot className="black" color={Blue} />
+        <ColorDot className="black" color={Red} onSelectLevel={onSelectLevel(Red)} />
+        <ColorDot className="black" color={Green} onSelectLevel={onSelectLevel(Green)} />
+        <ColorDot className="black" color={Blue} onSelectLevel={onSelectLevel(Blue)} />
       </div>
       {renderLevel2()}
       {renderLevel3()}

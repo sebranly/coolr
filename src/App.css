@@ -84,6 +84,34 @@ body {
   background-color: yellow;
 }
 
+.bg-white {
+  background-color: white;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: blue;
+}
+
+.magenta {
+  color: magenta;
+}
+
+.cyan {
+  color: cyan;
+}
+
+.yellow {
+  color: yellow;
+}
+
 .flex {
   display: flex;
 }
@@ -94,4 +122,8 @@ body {
 
 .flex-two {
   flex: 2;
+}
+
+.flex-three {
+  flex: 3;
 }
