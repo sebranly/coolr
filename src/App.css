@@ -36,7 +36,7 @@ body {
 
 .main {
   text-align: center;
-  font-family: 'Merriweather';
+  font-family: 'Courier';
   font-size: 25px;
 }
 
@@ -179,4 +179,14 @@ body {
 .button:hover {
   cursor: pointer;
   font-weight: bold;
+}
+
+.selected {
+  font-weight: bold;
+  font-style: italic;
+  color: darkgray;
+}
+
+.italic {
+  font-style: italic;
 }

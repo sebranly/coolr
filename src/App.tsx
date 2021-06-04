@@ -9,7 +9,17 @@ import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 
 import classnames from 'classnames';
-import { getDefaultSave, getLevelsText, canMix2, getNewLevelsMix2, getResultLevelMix2 } from './utils';
+import {
+  getDefaultSave,
+  getLevelsText,
+  canMix2,
+  getNewLevelsMix2,
+  getResultLevelMix2,
+  getResultLevelMix3,
+  canMix3,
+  getNewLevelsMix3
+} from './utils';
+import { MIX_ONE_COLOR_MSG, MIX_TWO_COLORS_MSG } from './constants';
 
 const App = () => {
   const [logs, setLogs] = React.useState(['Welcome to Coolr', 'This is a puzzle game']);
@@ -18,8 +28,18 @@ const App = () => {
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
 
+  const onRejectLevel = (level: Color) => () => {
+    setLogs([...logs, `Mix levels from floor 1 to access level ${level}`]);
+  };
+
   const onSelectLevel = (level: Color) => () => {
     let newLevels: Color[] = [];
+    let additionalLogs = [];
+
+    if (!save.hasSeenMix1) {
+      additionalLogs.push(MIX_ONE_COLOR_MSG);
+      setSave({ ...save, hasSeenMix1: true });
+    }
 
     if (!canMix2(save)) {
       const hasLevel = levels.includes(level);
@@ -27,6 +47,21 @@ const App = () => {
 
       setLevel(newLevels[0]);
       setLevels(newLevels);
+    } else if (canMix3(save)) {
+      newLevels = getNewLevelsMix3(levels, level);
+      setLevels(newLevels);
+
+      if (newLevels.length === 3) {
+        const resultLevelMix3 = getResultLevelMix3(newLevels);
+
+        setLevel(resultLevelMix3);
+      } else if (newLevels.length === 2) {
+        const resultLevelMix2 = getResultLevelMix2(newLevels);
+
+        setLevel(resultLevelMix2);
+      } else if (newLevels.length < 2) {
+        setLevel(newLevels[0]);
+      }
     } else if (canMix2(save)) {
       newLevels = getNewLevelsMix2(levels, level);
       setLevels(newLevels);
@@ -41,7 +76,8 @@ const App = () => {
     }
 
     const levelsText = getLevelsText(newLevels);
-    setLogs([...logs, levelsText]);
+    additionalLogs.push(levelsText);
+    setLogs([...logs, ...additionalLogs]);
   };
 
   if (isMobile) {
@@ -79,8 +115,8 @@ const App = () => {
       <div className="main">
         <h1 className="white">Coolr</h1>
         <div className="flex">
-          <div className="flex-three">
-            <PuzzleSelection onSelectLevel={onSelectLevel} save={save} />
+          <div className="flex-two">
+            <PuzzleSelection levels={levels} onRejectLevel={onRejectLevel} onSelectLevel={onSelectLevel} save={save} />
           </div>
           <div className="flex-two">
             <Notes logs={logs} />

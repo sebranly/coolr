@@ -22,4 +22,7 @@ export interface Save {
   magenta: Progress;
   yellow: Progress;
   white: Progress;
+  hasSeenMix1: boolean;
+  hasSeenMix2: boolean;
+  hasSeenMix3: boolean;
 }

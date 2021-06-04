@@ -7,12 +7,14 @@ import { hasLevel2, hasLevel3 } from '../utils';
 
 export interface PuzzleSelectionProps {
   className?: string;
+  levels: Color[];
+  onRejectLevel: (level: Color) => () => void;
   onSelectLevel: (level: Color) => () => void;
   save: Save;
 }
 
 const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
-  const { className, save, onSelectLevel } = props;
+  const { className, save, levels, onRejectLevel, onSelectLevel } = props;
   const { Hidden } = Progress;
   const { Red, Green, Blue, Magenta, Cyan, Yellow, White } = Color;
   const { red, green, blue, magenta, cyan, yellow, white } = save;
@@ -28,18 +30,31 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
         <h2>Floor 2</h2>
         <div className="block">
           {cyan !== Hidden && (
-            <ColorDot className="black" color={Cyan} onSelectLevel={onSelectLevel(Cyan)} miniSave={save.cyan} />
+            <ColorDot
+              className="black"
+              color={Cyan}
+              levels={levels}
+              onRejectLevel={onRejectLevel(Cyan)}
+              miniSave={save.cyan}
+            />
           )}
           {magenta !== Hidden && (
             <ColorDot
               className="black"
               color={Magenta}
-              onSelectLevel={onSelectLevel(Magenta)}
+              levels={levels}
+              onRejectLevel={onRejectLevel(Magenta)}
               miniSave={save.magenta}
             />
           )}
           {yellow !== Hidden && (
-            <ColorDot className="black" color={Yellow} onSelectLevel={onSelectLevel(Yellow)} miniSave={save.yellow} />
+            <ColorDot
+              className="black"
+              color={Yellow}
+              levels={levels}
+              onRejectLevel={onRejectLevel(Yellow)}
+              miniSave={save.yellow}
+            />
           )}
         </div>
       </>
@@ -56,7 +71,13 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
         <br />
         <h2>Floor 3</h2>
         <div className="block">
-          <ColorDot className="black" color={White} onSelectLevel={onSelectLevel(White)} miniSave={save.white} />
+          <ColorDot
+            className="black"
+            color={White}
+            levels={levels}
+            onRejectLevel={onRejectLevel(White)}
+            miniSave={save.white}
+          />
         </div>
       </>
     );
@@ -66,9 +87,27 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
     <>
       <h2>Floor 1</h2>
       <div className="block">
-        <ColorDot className="black" color={Red} onSelectLevel={onSelectLevel(Red)} miniSave={save.red} />
-        <ColorDot className="black" color={Green} onSelectLevel={onSelectLevel(Green)} miniSave={save.green} />
-        <ColorDot className="black" color={Blue} onSelectLevel={onSelectLevel(Blue)} miniSave={save.blue} />
+        <ColorDot
+          className="black"
+          color={Red}
+          levels={levels}
+          onSelectLevel={onSelectLevel(Red)}
+          miniSave={save.red}
+        />
+        <ColorDot
+          className="black"
+          color={Green}
+          levels={levels}
+          onSelectLevel={onSelectLevel(Green)}
+          miniSave={save.green}
+        />
+        <ColorDot
+          className="black"
+          color={Blue}
+          levels={levels}
+          onSelectLevel={onSelectLevel(Blue)}
+          miniSave={save.blue}
+        />
       </div>
       {renderLevel2()}
       {renderLevel3()}
