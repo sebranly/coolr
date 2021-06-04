@@ -1,19 +1,18 @@
 import * as React from 'react';
-import { Color } from '../types';
+import { Color, Save } from '../types';
 import classnames from 'classnames';
-import { MIX_ONE_COLOR_MSG, MIX_TWO_COLORS_MSG } from '../constants';
+import { getPowerLogs } from '../utils';
 
 export interface NotesProps {
   className?: string;
   logs: string[];
+  save: Save;
 }
 
 const Notes: React.FC<NotesProps> = (props) => {
-  const { className, logs } = props;
-  const regularLogs = logs.filter((log) => ![MIX_ONE_COLOR_MSG, MIX_TWO_COLORS_MSG].includes(log));
-  const powerLogs = logs.filter((log) => [MIX_ONE_COLOR_MSG, MIX_TWO_COLORS_MSG].includes(log));
-  const reversedLogs = [...regularLogs].reverse().slice(0, 5);
-  const reversedPowerLogs = [...powerLogs].reverse();
+  const { className, logs, save } = props;
+  const powerLogs = getPowerLogs(save);
+  const reversedLogs = [...logs].reverse().slice(0, 5);
 
   const hasPowerLogs = powerLogs.length > 0;
 
@@ -45,7 +44,7 @@ const Notes: React.FC<NotesProps> = (props) => {
       <>
         <br />
         <h2>Powers</h2>
-        {reversedPowerLogs.map((log, index) => (
+        {powerLogs.map((log, index) => (
           <div className="block" key={`${log}-${index}`}>
             {renderPowerLog(log)}
           </div>

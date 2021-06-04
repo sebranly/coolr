@@ -36,11 +36,6 @@ const App = () => {
     let newLevels: Color[] = [];
     let additionalLogs = [];
 
-    if (!save.hasSeenMix1) {
-      additionalLogs.push(MIX_ONE_COLOR_MSG);
-      setSave({ ...save, hasSeenMix1: true });
-    }
-
     if (!canMix2(save)) {
       const hasLevel = levels.includes(level);
       newLevels = hasLevel ? [] : [level];
@@ -119,7 +114,7 @@ const App = () => {
             <PuzzleSelection levels={levels} onRejectLevel={onRejectLevel} onSelectLevel={onSelectLevel} save={save} />
           </div>
           <div className="flex-two">
-            <Notes logs={logs} />
+            <Notes logs={logs} save={save} />
           </div>
         </div>
         {level && (

@@ -1,3 +1,4 @@
+import { MIX_ONE_COLOR_MSG, MIX_THREE_COLORS_MSG, MIX_TWO_COLORS_MSG } from '../constants';
 import { Color, Progress, Save } from '../types';
 
 const getDefaultSave = () => {
@@ -10,10 +11,7 @@ const getDefaultSave = () => {
     cyan: Done,
     magenta: Done,
     yellow: Done,
-    white: Available,
-    hasSeenMix1: false,
-    hasSeenMix2: false,
-    hasSeenMix3: false
+    white: Available
   };
 
   return defaultSave;
@@ -28,7 +26,7 @@ const canMix2 = (save: Save) => {
   const greenDone = green === Done;
   const blueDone = blue === Done;
 
-  return (redDone && greenDone) || (redDone && blueDone) || (greenDone && blueDone);
+  return redDone && greenDone && blueDone;
 };
 
 const canMix3 = (save: Save) => {
@@ -115,6 +113,13 @@ const getResultLevelMix3 = (levels: Color[]) => {
   return undefined;
 };
 
+const getPowerLogs = (save: Save) => {
+  if (canMix3(save)) return [MIX_THREE_COLORS_MSG];
+  if (canMix2(save)) return [MIX_TWO_COLORS_MSG];
+
+  return [MIX_ONE_COLOR_MSG];
+};
+
 export {
   getResultLevelMix2,
   getResultLevelMix3,
@@ -125,5 +130,6 @@ export {
   hasLevel3,
   getLevelsText,
   getNewLevelsMix2,
-  getNewLevelsMix3
+  getNewLevelsMix3,
+  getPowerLogs
 };
