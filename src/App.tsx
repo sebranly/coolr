@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { IoIosConstruct } from 'react-icons/io';
+import { IoIosConstruct, IoMdColorFill } from 'react-icons/io';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
+import { Color } from './types';
+import { PuzzleSelection } from './components/PuzzleSelection';
 
 import classnames from 'classnames';
+import { getDefaultSave } from './utils';
+
+const save = getDefaultSave();
 
 const App = () => {
   if (isMobile) {
@@ -28,7 +33,6 @@ const App = () => {
     );
   }
 
- 
   return (
     <HelmetProvider>
       <link
@@ -42,8 +46,13 @@ const App = () => {
         <link rel="canonical" href="https://sebranly.github.io/coolr" />
       </Helmet>
       <div className="main">
-        <h1>Coolr</h1>
-        
+        <h1 className="white">Coolr</h1>
+        <div className="flex">
+          <div className="flex-two">
+            <PuzzleSelection save={save} />
+          </div>
+          <div className="flex-one">test text tbd</div>
+        </div>
       </div>
     </HelmetProvider>
   );

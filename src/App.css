@@ -1,5 +1,35 @@
+:root {
+  --avatar-size: 100px;
+  /* change this value anything, e.g., 100px, 10rem, etc. */
+}
+
+.circle {
+  margin: 5px;
+  border-radius: 50%;
+  height: var(--avatar-size);
+  text-align: center;
+  width: var(--avatar-size);
+}
+
+.circle:hover {
+  color: darkgray;
+  cursor: pointer;
+}
+
+h1 {
+  margin: 10px !important;
+}
+
+.initial {
+  font-size: calc(var(--avatar-size) / 2); /* 50% of parent */
+  line-height: 1;
+  position: relative;
+  top: calc(var(--avatar-size) / 4); /* 25% of parent */
+}
+
 body {
-  background-color: goldenrod !important;
+  background-color: black !important;
+  color: white !important;
   margin: 0px !important;
   padding: 0px !important;
 }
@@ -8,4 +38,60 @@ body {
   text-align: center;
   font-family: 'Merriweather';
   font-size: 25px;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.black {
+  color: black;
+}
+
+.white {
+  color: white;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-magenta {
+  background-color: magenta;
+}
+
+.bg-cyan {
+  background-color: cyan;
+}
+
+.bg-yellow {
+  background-color: yellow;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-one {
+  flex: 1;
+}
+
+.flex-two {
+  flex: 2;
 }
