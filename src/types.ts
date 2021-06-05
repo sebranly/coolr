@@ -26,6 +26,7 @@ export interface Save {
 
 export enum Puzzle {
   DinoCrisis = 'dinoCrisis',
+  Konami = 'konami',
   Menu = 'menu'
 }
 
@@ -36,4 +37,11 @@ export enum RainbowColor {
   Green = 'green',
   Blue = 'blue',
   Violet = 'violet'
+}
+
+export enum Move {
+  Left = 'left',
+  Right = 'right',
+  Up = 'up',
+  Down = 'down'
 }

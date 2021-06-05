@@ -47,7 +47,7 @@ const DinoCrisis: React.FC<DinoCrisisProps> = (props) => {
             copyRect[index + 1] = temp;
 
             if (isEqual(copyRect, [Red, Orange, Yellow, Green, Blue, Violet])) {
-              setLogs([...logs, 'Congrats! Color green is completed']);
+              setLogs([...logs, 'Perfect rainbow!', 'Congrats! Color green is completed']);
               setSave({ ...save, green: Progress.Done });
               setPuzzle(Puzzle.Menu);
             }

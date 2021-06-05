@@ -1,3 +1,4 @@
+import { Konami } from '../components/Konami';
 import { MIX_ONE_COLOR_MSG, MIX_THREE_COLORS_MSG, MIX_TWO_COLORS_MSG } from '../constants';
 import { Color, Progress, Save, Puzzle } from '../types';
 
@@ -125,9 +126,11 @@ const getPowerLogs = (save: Save) => {
 
 const getPuzzleColor = (level: Color) => {
   const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis } = Puzzle;
+  const { Menu, DinoCrisis, Konami } = Puzzle;
 
   switch (level) {
+    case Blue:
+      return Konami;
     case Green:
       return DinoCrisis;
     default:
@@ -136,13 +139,15 @@ const getPuzzleColor = (level: Color) => {
 };
 
 const getPuzzleText = (puzzle: Puzzle) => {
-  const { Menu, DinoCrisis } = Puzzle;
+  const { Menu, DinoCrisis, Konami } = Puzzle;
 
   switch (puzzle) {
     case Menu:
       return 'Menu';
     case DinoCrisis:
       return 'Gay Pride';
+    case Konami:
+      return 'Konami Dancefloor';
     default:
       return 'Puzzle';
   }

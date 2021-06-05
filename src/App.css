@@ -215,6 +215,16 @@ body {
   color: violet;
 }
 
+.square {
+  border: 1px solid white;
+}
+
+.square-pos {
+  background-color: white;
+  font-weight: bold;
+  color: black;
+}
+
 .mini-button {
   border: 1px solid white;
   padding: 1%;

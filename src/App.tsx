@@ -8,6 +8,7 @@ import { Color, Progress, Puzzle } from './types';
 import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 import { DinoCrisis } from './components/DinoCrisis';
+import { Konami } from './components/Konami';
 
 import classnames from 'classnames';
 import {
@@ -158,6 +159,9 @@ const App = () => {
 
             {puzzle === Puzzle.DinoCrisis && (
               <DinoCrisis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
+            {puzzle === Puzzle.Konami && (
+              <Konami logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
             {puzzle !== Puzzle.Menu && (
               <div onClick={() => setPuzzle(Puzzle.Menu)} className="button">
