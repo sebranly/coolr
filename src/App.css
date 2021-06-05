@@ -171,8 +171,8 @@ body {
 
 .button {
   border: 1px solid white;
-  width: 25%;
-  margin: 20px auto;
+  width: 50%;
+  margin: 100px auto;
   background-color: darkslategrey;
 }
 
@@ -182,11 +182,15 @@ body {
 }
 
 .selected {
+  border: 2px solid darkgray;
   font-weight: bold;
-  font-style: italic;
   color: darkgray;
 }
 
 .italic {
   font-style: italic;
+}
+
+.text-center {
+  text-align: center;
 }

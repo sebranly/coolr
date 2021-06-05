@@ -21,7 +21,9 @@ const Notes: React.FC<NotesProps> = (props) => {
 
     return words.map((word: string, index) => {
       const additionalClass = Object.values(Color).includes(word as any) ? `${word} italic` : '';
-      const classes = classnames(additionalClass, 'inline');
+      const successClass = word === 'Success:' ? 'green' : '';
+      const failureClass = word === 'Failure:' ? 'red' : '';
+      const classes = classnames(additionalClass, successClass, failureClass, 'inline');
 
       return (
         <div className={classes} key={`${word}-${index}`}>

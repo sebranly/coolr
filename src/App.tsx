@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
-import { Color } from './types';
+import { Color, Progress } from './types';
 import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 
@@ -19,17 +19,38 @@ import {
   canMix3,
   getNewLevelsMix3
 } from './utils';
-import { MIX_ONE_COLOR_MSG, MIX_TWO_COLORS_MSG } from './constants';
 
 const App = () => {
-  const [logs, setLogs] = React.useState(['Welcome to Coolr', 'This is a puzzle game']);
+  const [logs, setLogs] = React.useState([
+    'Welcome to Coolr',
+    'This is a puzzle game',
+    'If you refresh the page, you lose progress',
+    'Make sure to write down any 5-letter code'
+  ]);
 
   const [save, setSave] = React.useState(getDefaultSave());
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
 
   const onRejectLevel = (level: Color) => () => {
-    setLogs([...logs, `Mix levels from floor 1 to access level ${level}`]);
+    setLogs([...logs, `Mix colors from floor 1 to access color ${level}`]);
+  };
+
+  const onChangeCode = (e: any) => {
+    const code = e.currentTarget.value;
+
+    if (code.length !== 5) return;
+
+    if (code !== 'CHEAT') setLogs([...logs, `Failure: cheat code ${code} is invalid`]);
+    else {
+      setSave({ ...save, red: Progress.Done, green: Progress.Done, blue: Progress.Done });
+      setLogs([
+        ...logs,
+        `Success: cheat code ${code} is valid`,
+        'Save has been loaded',
+        'red green blue are completed'
+      ]);
+    }
   };
 
   const onSelectLevel = (level: Color) => () => {
@@ -109,19 +130,22 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1 className="white">Coolr</h1>
+        <h2 className="white italic">Menu</h2>
         <div className="flex">
           <div className="flex-two">
             <PuzzleSelection levels={levels} onRejectLevel={onRejectLevel} onSelectLevel={onSelectLevel} save={save} />
+            {level && (
+              <div className="button">
+                Enter color<div className={classnames('inline', level)}>{` ${level}`}</div>
+              </div>
+            )}
           </div>
           <div className="flex-two">
             <Notes logs={logs} save={save} />
+            <br />
+            <input className="text-center" type="text" onChange={onChangeCode} />
           </div>
         </div>
-        {level && (
-          <div className="button">
-            Enter level<div className={classnames('inline', level)}>{` ${level}`}</div>
-          </div>
-        )}
       </div>
     </HelmetProvider>
   );

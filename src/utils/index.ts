@@ -5,13 +5,13 @@ const getDefaultSave = () => {
   const { Available, Hidden, Done } = Progress;
 
   const defaultSave: Save = {
-    red: Done,
-    green: Done,
-    blue: Done,
-    cyan: Done,
-    magenta: Done,
-    yellow: Done,
-    white: Available
+    red: Available,
+    green: Available,
+    blue: Available,
+    cyan: Hidden,
+    magenta: Hidden,
+    yellow: Hidden,
+    white: Hidden
   };
 
   return defaultSave;
@@ -83,12 +83,12 @@ const getNewLevelsMix3 = (levels: Color[], level: Color) => {
 };
 
 const getLevelsText = (levels: Color[]) => {
-  if (levels.length === 0) return 'No level is selected';
-  if (levels.length === 1) return `Level ${levels[0]} is selected`;
+  if (levels.length === 0) return 'No color selected';
+  if (levels.length === 1) return `Color ${levels[0]} is selected`;
 
   const mix = levels.length === 2 ? getResultLevelMix2(levels) : getResultLevelMix3(levels);
 
-  return `Levels ${levels.join(' ')} are selected: mix is ${mix}`;
+  return `Colors ${levels.join(' ')} are selected: mix is ${mix}`;
 };
 
 const getResultLevelMix2 = (levels: Color[]) => {
@@ -114,10 +114,13 @@ const getResultLevelMix3 = (levels: Color[]) => {
 };
 
 const getPowerLogs = (save: Save) => {
-  if (canMix3(save)) return [MIX_THREE_COLORS_MSG];
-  if (canMix2(save)) return [MIX_TWO_COLORS_MSG];
+  const currentCode = '';
+  const codeMsg = 'Or type a 5-letter code below to load a save';
 
-  return [MIX_ONE_COLOR_MSG];
+  if (canMix3(save)) return [MIX_THREE_COLORS_MSG, currentCode, codeMsg];
+  if (canMix2(save)) return [MIX_TWO_COLORS_MSG, currentCode, codeMsg];
+
+  return [MIX_ONE_COLOR_MSG, currentCode, codeMsg];
 };
 
 export {
