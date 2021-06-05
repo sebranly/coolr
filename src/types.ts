@@ -23,3 +23,17 @@ export interface Save {
   yellow: Progress;
   white: Progress;
 }
+
+export enum Puzzle {
+  DinoCrisis = 'dinoCrisis',
+  Menu = 'menu'
+}
+
+export enum RainbowColor {
+  Red = 'red',
+  Orange = 'orange',
+  Yellow = 'yellow',
+  Green = 'green',
+  Blue = 'blue',
+  Violet = 'violet'
+}

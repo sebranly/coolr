@@ -27,6 +27,10 @@ h1 {
   top: calc(var(--avatar-size) / 4); /* 25% of parent */
 }
 
+.margin {
+  margin: 2%;
+}
+
 body {
   background-color: black !important;
   color: white !important;
@@ -193,4 +197,35 @@ body {
 
 .text-center {
   text-align: center;
+}
+
+.border {
+  border: 1px solid white;
+}
+
+.bg-orange {
+  background-color: orange;
+}
+
+.bg-violet {
+  background-color: violet;
+}
+
+.violet {
+  color: violet;
+}
+
+.mini-button {
+  border: 1px solid white;
+  padding: 1%;
+  background-color: darkgrey;
+}
+
+.mini-button:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.margin-bottom {
+  margin-bottom: 2%;
 }

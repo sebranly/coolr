@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { IoIosConstruct, IoMdColorFill } from 'react-icons/io';
+import { IoIosConstruct } from 'react-icons/io';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
-import { Color, Progress } from './types';
+import { Color, Progress, Puzzle } from './types';
 import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
+import { DinoCrisis } from './components/DinoCrisis';
 
 import classnames from 'classnames';
 import {
   getDefaultSave,
+  getPuzzleColor,
+  getPuzzleText,
   getLevelsText,
   canMix2,
   getNewLevelsMix2,
@@ -31,6 +34,7 @@ const App = () => {
   const [save, setSave] = React.useState(getDefaultSave());
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
 
   const onRejectLevel = (level: Color) => () => {
     setLogs([...logs, `Mix colors from floor 1 to access color ${level}`]);
@@ -41,6 +45,7 @@ const App = () => {
 
     if (code.length !== 5) return;
 
+    // TODO: remove
     if (code !== 'CHEAT') setLogs([...logs, `Failure: cheat code ${code} is invalid`]);
     else {
       setSave({ ...save, red: Progress.Done, green: Progress.Done, blue: Progress.Done });
@@ -48,7 +53,7 @@ const App = () => {
         ...logs,
         `Success: cheat code ${code} is valid`,
         'Save has been loaded',
-        'red green blue are completed'
+        'Colors red green blue are completed'
       ]);
     }
   };
@@ -130,17 +135,37 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1 className="white">Coolr</h1>
-        <h2 className="white italic">Menu</h2>
+        <h2 className="white italic">{getPuzzleText(puzzle)}</h2>
+
         <div className="flex">
-          <div className="flex-two">
-            <PuzzleSelection levels={levels} onRejectLevel={onRejectLevel} onSelectLevel={onSelectLevel} save={save} />
-            {level && (
-              <div className="button">
-                Enter color<div className={classnames('inline', level)}>{` ${level}`}</div>
+          <div className="flex-one margin">
+            {puzzle === Puzzle.Menu && (
+              <>
+                <PuzzleSelection
+                  levels={levels}
+                  onRejectLevel={onRejectLevel}
+                  onSelectLevel={onSelectLevel}
+                  save={save}
+                />
+                {level && (
+                  <div onClick={() => setPuzzle(getPuzzleColor(level))} className="button">
+                    Enter color
+                    <div className={classnames('inline', level)}>{` ${level}`}</div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {puzzle === Puzzle.DinoCrisis && (
+              <DinoCrisis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
+            {puzzle !== Puzzle.Menu && (
+              <div onClick={() => setPuzzle(Puzzle.Menu)} className="button">
+                Back to menu
               </div>
             )}
           </div>
-          <div className="flex-two">
+          <div className="flex-one margin">
             <Notes logs={logs} save={save} />
             <br />
             <input className="text-center" type="text" onChange={onChangeCode} />

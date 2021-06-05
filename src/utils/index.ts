@@ -1,5 +1,5 @@
 import { MIX_ONE_COLOR_MSG, MIX_THREE_COLORS_MSG, MIX_TWO_COLORS_MSG } from '../constants';
-import { Color, Progress, Save } from '../types';
+import { Color, Progress, Save, Puzzle } from '../types';
 
 const getDefaultSave = () => {
   const { Available, Hidden, Done } = Progress;
@@ -123,6 +123,31 @@ const getPowerLogs = (save: Save) => {
   return [MIX_ONE_COLOR_MSG, currentCode, codeMsg];
 };
 
+const getPuzzleColor = (level: Color) => {
+  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
+  const { Menu, DinoCrisis } = Puzzle;
+
+  switch (level) {
+    case Green:
+      return DinoCrisis;
+    default:
+      return Menu;
+  }
+};
+
+const getPuzzleText = (puzzle: Puzzle) => {
+  const { Menu, DinoCrisis } = Puzzle;
+
+  switch (puzzle) {
+    case Menu:
+      return 'Menu';
+    case DinoCrisis:
+      return 'Gay Pride';
+    default:
+      return 'Puzzle';
+  }
+};
+
 export {
   getResultLevelMix2,
   getResultLevelMix3,
@@ -134,5 +159,7 @@ export {
   getLevelsText,
   getNewLevelsMix2,
   getNewLevelsMix3,
-  getPowerLogs
+  getPowerLogs,
+  getPuzzleText,
+  getPuzzleColor
 };

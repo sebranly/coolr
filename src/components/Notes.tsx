@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Color, Save } from '../types';
+import { Color, Save, RainbowColor } from '../types';
 import classnames from 'classnames';
 import { getPowerLogs } from '../utils';
 
@@ -20,7 +20,10 @@ const Notes: React.FC<NotesProps> = (props) => {
     const words = log.split(' ');
 
     return words.map((word: string, index) => {
-      const additionalClass = Object.values(Color).includes(word as any) ? `${word} italic` : '';
+      const additionalClass =
+        Object.values(Color).includes(word as any) || Object.values(RainbowColor).includes(word as any)
+          ? `${word} italic`
+          : '';
       const successClass = word === 'Success:' ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
       const classes = classnames(additionalClass, successClass, failureClass, 'inline');
