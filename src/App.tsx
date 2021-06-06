@@ -56,6 +56,8 @@ const App = () => {
         'Save has been loaded',
         'Colors red green blue are completed'
       ]);
+
+      setPuzzle(Puzzle.Menu);
     }
   };
 

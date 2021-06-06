@@ -47,10 +47,10 @@ const Konami: React.FC<KonamiProps> = (props) => {
       setSequence(newSequence);
       const isDone = isEqual(newSequence, correctSequence);
 
-      if (!isDone) setLogs([...logs, `Correct sequence so far: ${newSequence.join(', ')}`]);
+      if (!isDone) setLogs([...logs, `Correct sequence so far: ${newSequence.join(' ')}`]);
 
       if (isDone) {
-        setLogs([...logs, `Sequence completed: ${newSequence.join(', ')}`, 'Congrats! Color blue is completed']);
+        setLogs([...logs, `Sequence completed: ${newSequence.join(' ')}`, 'Congrats! Color blue is completed']);
         setSave({ ...save, blue: Progress.Done });
         setPuzzle(Puzzle.Menu);
       }
@@ -78,18 +78,18 @@ const Konami: React.FC<KonamiProps> = (props) => {
   return (
     <>
       <div className="margin-bottom">{renderRows()}</div>
-      <div onClick={() => onDance(Up)} className="mini-button">
+      <div onClick={() => onDance(Up)} className="mini-button up">
         Up
       </div>
       <div className="block flex">
-        <div onClick={() => onDance(Left)} className="mini-button flex-one">
+        <div onClick={() => onDance(Left)} className="mini-button flex-one left">
           Left
         </div>
-        <div onClick={() => onDance(Right)} className="mini-button flex-one">
+        <div onClick={() => onDance(Right)} className="mini-button flex-one right">
           Right
         </div>
       </div>
-      <div onClick={() => onDance(Down)} className="mini-button">
+      <div onClick={() => onDance(Down)} className="mini-button down">
         Down
       </div>
     </>

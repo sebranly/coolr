@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Color, Save, RainbowColor } from '../types';
+import { Color, Move, Save, RainbowColor } from '../types';
 import classnames from 'classnames';
 import { getPowerLogs } from '../utils';
 
@@ -21,15 +21,33 @@ const Notes: React.FC<NotesProps> = (props) => {
 
     return words.map((word: string, index) => {
       const additionalClass =
-        Object.values(Color).includes(word as any) || Object.values(RainbowColor).includes(word as any)
+        Object.values(Color).includes(word as any) ||
+        Object.values(RainbowColor).includes(word as any) ||
+        Object.values(Move).includes(word as any)
           ? `${word} italic`
           : '';
+
       const successClass = word === 'Success:' ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
       const classes = classnames(additionalClass, successClass, failureClass, 'inline');
+      const key = `${word}-${index}`;
+
+      if (word === 'rainbow!') {
+        return (
+          <>
+            <div className="inline red">r</div>
+            <div className="inline orange">a</div>
+            <div className="inline yellow">i</div>
+            <div className="inline white">n</div>
+            <div className="inline green">b</div>
+            <div className="inline blue">o</div>
+            <div className="inline violet">w</div>
+          </>
+        );
+      }
 
       return (
-        <div className={classes} key={`${word}-${index}`}>
+        <div className={classes} key={key}>
           {word}{' '}
         </div>
       );
@@ -37,7 +55,7 @@ const Notes: React.FC<NotesProps> = (props) => {
   };
 
   const renderPowerLog = (log: string) => (
-    <div className="inline" key={log}>
+    <div className="inline power" key={log}>
       {log}
     </div>
   );

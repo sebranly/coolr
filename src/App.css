@@ -215,6 +215,30 @@ body {
   color: violet;
 }
 
+.power {
+  color: orange;
+}
+
+.orange {
+  color: orange;
+}
+
+.up {
+  color: blue;
+}
+
+.down {
+  color: yellow;
+}
+
+.left {
+  color: green;
+}
+
+.right {
+  color: red;
+}
+
 .square {
   border: 1px solid white;
 }
