@@ -29,7 +29,8 @@ const Notes: React.FC<NotesProps> = (props) => {
 
       const successClass = word === 'Success:' ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
-      const classes = classnames(additionalClass, successClass, failureClass, 'inline');
+      const objectiveClass = word === 'Objective:' ? 'orange' : '';
+      const classes = classnames(objectiveClass, additionalClass, successClass, failureClass, 'inline');
       const key = `${word}-${index}`;
 
       if (word === 'rainbow!') {

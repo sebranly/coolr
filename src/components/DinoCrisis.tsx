@@ -17,7 +17,7 @@ const DinoCrisis: React.FC<DinoCrisisProps> = (props) => {
 
   const { Red, Orange, Yellow, Green, Blue, Violet } = RainbowColor;
 
-  React.useEffect(() => setLogs([...logs, 'Produce a red to violet rainbow']), []);
+  React.useEffect(() => setLogs([...logs, 'Objective: Produce a red to violet rainbow']), []);
 
   const [rect, setRect] = React.useState<RainbowColor[]>([Violet, Orange, Yellow, Red, Green, Blue]);
   const buttonsIds = [0, 1, 2, 3, 4];

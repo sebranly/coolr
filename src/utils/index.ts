@@ -1,4 +1,3 @@
-import { Konami } from '../components/Konami';
 import { MIX_ONE_COLOR_MSG, MIX_THREE_COLORS_MSG, MIX_TWO_COLORS_MSG } from '../constants';
 import { Color, Progress, Save, Puzzle } from '../types';
 
@@ -126,20 +125,22 @@ const getPowerLogs = (save: Save) => {
 
 const getPuzzleColor = (level: Color) => {
   const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis, Konami } = Puzzle;
+  const { Menu, DinoCrisis, Konami, Zelda } = Puzzle;
 
   switch (level) {
     case Blue:
       return Konami;
     case Green:
       return DinoCrisis;
+    case Red:
+      return Zelda;
     default:
       return Menu;
   }
 };
 
 const getPuzzleText = (puzzle: Puzzle) => {
-  const { Menu, DinoCrisis, Konami } = Puzzle;
+  const { Menu, DinoCrisis, Konami, Zelda } = Puzzle;
 
   switch (puzzle) {
     case Menu:
@@ -147,13 +148,36 @@ const getPuzzleText = (puzzle: Puzzle) => {
     case DinoCrisis:
       return 'Gay Pride';
     case Konami:
-      return 'Konami Dancefloor';
+      return 'Be like Konami';
+    case Zelda:
+      return 'Random Chest';
     default:
       return 'Puzzle';
   }
 };
 
+const getRoomColor = (room: number) => {
+  if (room < 3) return Color.Green;
+  if (room < 5) return Color.Blue;
+  if (room === 5) return Color.Red;
+
+  return Color.Yellow;
+};
+
+const getRandomInt = (max: number) => {
+  return Math.floor(Math.random() * max);
+};
+
+const getRupees = (room: number) => {
+  if (room < 3) return 1;
+  if (room < 5) return 5;
+  if (room === 5) return 20;
+
+  return 50;
+};
+
 export {
+  getRandomInt,
   getResultLevelMix2,
   getResultLevelMix3,
   canMix2,
@@ -166,5 +190,7 @@ export {
   getNewLevelsMix3,
   getPowerLogs,
   getPuzzleText,
-  getPuzzleColor
+  getPuzzleColor,
+  getRoomColor,
+  getRupees
 };

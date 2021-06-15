@@ -25,7 +25,7 @@ const Konami: React.FC<KonamiProps> = (props) => {
 
   const correctSequence = [Up, Up, Down, Down, Left, Right, Left, Right];
 
-  React.useEffect(() => setLogs([...logs, 'Dance the Konami Sequence']), []);
+  React.useEffect(() => setLogs([...logs, 'Objective: Dance the Konami Sequence']), []);
 
   const onDance = (move: Move) => {
     let decaX = 0;

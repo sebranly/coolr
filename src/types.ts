@@ -27,7 +27,8 @@ export interface Save {
 export enum Puzzle {
   DinoCrisis = 'dinoCrisis',
   Konami = 'konami',
-  Menu = 'menu'
+  Menu = 'menu',
+  Zelda = 'zelda'
 }
 
 export enum RainbowColor {
