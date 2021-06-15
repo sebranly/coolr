@@ -80,10 +80,18 @@ const App = () => {
         const resultLevelMix3 = getResultLevelMix3(newLevels);
 
         setLevel(resultLevelMix3);
+        const levelSave = resultLevelMix3;
+        if (levelSave && (save as any)[levelSave] !== Progress.Done) {
+          setSave({ ...save, [levelSave]: Progress.Available });
+        }
       } else if (newLevels.length === 2) {
         const resultLevelMix2 = getResultLevelMix2(newLevels);
 
         setLevel(resultLevelMix2);
+        const levelSave = resultLevelMix2;
+        if (levelSave && (save as any)[levelSave] !== Progress.Done) {
+          setSave({ ...save, [levelSave]: Progress.Available });
+        }
       } else if (newLevels.length < 2) {
         setLevel(newLevels[0]);
       }
@@ -95,6 +103,10 @@ const App = () => {
         const resultLevelMix2 = getResultLevelMix2(newLevels);
 
         setLevel(resultLevelMix2);
+        const levelSave = resultLevelMix2;
+        if (levelSave && (save as any)[levelSave] !== Progress.Done) {
+          setSave({ ...save, [levelSave]: Progress.Available });
+        }
       } else if (newLevels.length < 2) {
         setLevel(newLevels[0]);
       }
