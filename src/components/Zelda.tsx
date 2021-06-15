@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Save, Progress, RainbowColor, Puzzle } from '../types';
 import classnames from 'classnames';
-import { clone, isEqual } from 'lodash';
-import { getRandomInt, getRoomColor, getRupees } from '../utils';
+import { getPlural, getRandomInt, getRoomColor, getRupees, getRupeesColor } from '../utils';
+import { RUPEES_ENTRY_COST, RUPEES_INITIAL_COUNT } from '../constants';
 
 export interface ZeldaProps {
   className?: string;
@@ -15,21 +15,23 @@ export interface ZeldaProps {
 
 const Zelda: React.FC<ZeldaProps> = (props) => {
   const { className, setSave, save, setPuzzle, setLogs, logs } = props;
+  const room1Msg = `${RUPEES_ENTRY_COST} rupee, ${getRupeesColor(RUPEES_ENTRY_COST)} rupee`;
 
   React.useEffect(
     () =>
       setLogs([
         ...logs,
         'Objective: Collect 50 Rupees',
-        'Entering room 1 costs 3 rupees',
+        `Entering room 1 costs ${room1Msg}`,
         'One chest has a key to next room, the other has rupees',
-        'You currently have 10 rupees. You are in room 1'
+        `You currently have ${RUPEES_INITIAL_COUNT} rupee. You are in room 1`,
+        `Pick a chest`
       ]),
     []
   );
 
   const openChest = () => {
-    const result = getRandomInt(2);
+    const result = room === 6 ? 0 : getRandomInt(2);
 
     if (result === 1) {
       const newRoom = room + 1;
@@ -37,26 +39,24 @@ const Zelda: React.FC<ZeldaProps> = (props) => {
       setRoom(newRoom);
     } else {
       const deltaRupees = getRupees(room);
-      const newRupees = rupees + deltaRupees - 3;
+      const newRupees = rupees + deltaRupees - RUPEES_ENTRY_COST;
 
+      const chestMsg = `Chest had ${deltaRupees} ${getPlural('rupee', deltaRupees)}, ${getRupeesColor(
+        deltaRupees
+      )} rupee`;
       if (newRupees >= 50) {
-        setLogs([
-          ...logs,
-          `Chest had ${deltaRupees} rupees`,
-          `50+ rupees collected`,
-          'Congrats! Color red is completed'
-        ]);
+        setLogs([...logs, chestMsg, `50+ rupees collected`, 'Congrats! Color red is completed']);
         setSave({ ...save, red: Progress.Done });
         setPuzzle(Puzzle.Menu);
       } else if (newRupees < 0) {
-        setLogs([...logs, `Chest had ${deltaRupees} rupees`, `You wasted all your rupees`, 'Game Over, start again']);
+        setLogs([...logs, chestMsg, `You wasted all your rupees`, 'Game Over, start again']);
         setPuzzle(Puzzle.Menu);
       } else {
         setLogs([
           ...logs,
-          `Chest had ${deltaRupees} rupees`,
-          'You go back to room 1 and pay 3 rupees',
-          `You now have ${newRupees} rupees`
+          chestMsg,
+          `You go back to room 1 and pay ${room1Msg}`,
+          `You now have ${newRupees} ${getPlural('rupee', newRupees)}`
         ]);
         setRoom(1);
         setRupees(newRupees);
@@ -64,10 +64,19 @@ const Zelda: React.FC<ZeldaProps> = (props) => {
     }
   };
 
-  const [rupees, setRupees] = React.useState(10);
+  const [rupees, setRupees] = React.useState(RUPEES_INITIAL_COUNT);
   const [room, setRoom] = React.useState(1);
 
   const classesRoom = classnames(`room flex bg-${getRoomColor(room)}`);
+
+  if (room === 6)
+    return (
+      <div className={classesRoom}>
+        <div onClick={openChest} className="flex-one chest">
+          Final Chest
+        </div>
+      </div>
+    );
 
   return (
     <div className={classesRoom}>

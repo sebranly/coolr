@@ -40,6 +40,13 @@ export enum RainbowColor {
   Violet = 'violet'
 }
 
+export enum RupeeColor {
+  Red = 'red',
+  Green = 'green',
+  Blue = 'blue',
+  Purple = 'purple'
+}
+
 export enum Move {
   Left = 'left',
   Right = 'right',

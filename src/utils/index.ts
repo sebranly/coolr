@@ -1,5 +1,10 @@
 import { MIX_ONE_COLOR_MSG, MIX_THREE_COLORS_MSG, MIX_TWO_COLORS_MSG } from '../constants';
-import { Color, Progress, Save, Puzzle } from '../types';
+import { Color, Progress, Save, Puzzle, RupeeColor } from '../types';
+
+const getPlural = (str: string, count: number) => {
+  if (count === 1) return str;
+  return `${str}s`;
+};
 
 const getDefaultSave = () => {
   const { Available, Hidden, Done } = Progress;
@@ -176,7 +181,15 @@ const getRupees = (room: number) => {
   return 50;
 };
 
+const getRupeesColor = (rupees: number) => {
+  if (rupees === 1) return RupeeColor.Green;
+  if (rupees === 5) return RupeeColor.Blue;
+  if (rupees === 20) return RupeeColor.Red;
+  if (rupees === 50) return RupeeColor.Purple;
+};
+
 export {
+  getPlural,
   getRandomInt,
   getResultLevelMix2,
   getResultLevelMix3,
@@ -192,5 +205,6 @@ export {
   getPuzzleText,
   getPuzzleColor,
   getRoomColor,
-  getRupees
+  getRupees,
+  getRupeesColor
 };

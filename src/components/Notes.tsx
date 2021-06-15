@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Color, Move, Save, RainbowColor } from '../types';
+import { Color, Move, Save, RainbowColor, RupeeColor } from '../types';
 import classnames from 'classnames';
 import { getPowerLogs } from '../utils';
 
@@ -23,6 +23,7 @@ const Notes: React.FC<NotesProps> = (props) => {
       const additionalClass =
         Object.values(Color).includes(word as any) ||
         Object.values(RainbowColor).includes(word as any) ||
+        Object.values(RupeeColor).includes(word as any) ||
         Object.values(Move).includes(word as any)
           ? `${word} italic`
           : '';
