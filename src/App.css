@@ -243,6 +243,15 @@ body {
   color: red;
 }
 
+.tile {
+  border: 1px solid purple;
+  min-height: 100px;
+}
+
+.tile:hover {
+  cursor: pointer;
+}
+
 .square {
   border: 1px solid white;
 }

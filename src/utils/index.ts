@@ -129,39 +129,6 @@ const getPowerLogs = (save: Save) => {
   return [MIX_ONE_COLOR_MSG, currentCode, codeMsg];
 };
 
-const getPuzzleColor = (level: Color) => {
-  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis, Konami, Zelda } = Puzzle;
-
-  switch (level) {
-    case Blue:
-      return Konami;
-    case Green:
-      return DinoCrisis;
-    case Red:
-      return Zelda;
-    default:
-      return Menu;
-  }
-};
-
-const getPuzzleText = (puzzle: Puzzle) => {
-  const { Menu, DinoCrisis, Konami, Zelda } = Puzzle;
-
-  switch (puzzle) {
-    case Menu:
-      return 'Menu';
-    case DinoCrisis:
-      return 'Gay Pride';
-    case Konami:
-      return 'Be like Konami';
-    case Zelda:
-      return 'Random Chest';
-    default:
-      return 'Puzzle';
-  }
-};
-
 const getRoomColor = (room: number) => {
   if (room < 3) return Color.Green;
   if (room < 5) return Color.Blue;
@@ -187,6 +154,43 @@ const getRupeesColor = (rupees: number) => {
   if (rupees === 5) return RupeeColor.Blue;
   if (rupees === 20) return RupeeColor.Red;
   if (rupees === 50) return RupeeColor.Purple;
+};
+
+const getPuzzleColor = (level: Color) => {
+  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
+  const { Menu, DinoCrisis, Konami, Zelda, Spyro } = Puzzle;
+
+  switch (level) {
+    case Blue:
+      return Konami;
+    case Green:
+      return DinoCrisis;
+    case Red:
+      return Zelda;
+    case Magenta:
+      return Spyro;
+    default:
+      return Menu;
+  }
+};
+
+const getPuzzleText = (puzzle: Puzzle) => {
+  const { Menu, DinoCrisis, Konami, Spyro, Zelda } = Puzzle;
+
+  switch (puzzle) {
+    case Menu:
+      return 'Menu';
+    case DinoCrisis:
+      return 'Gay Pride';
+    case Konami:
+      return 'Be like Konami';
+    case Spyro:
+      return 'Master the Tiles';
+    case Zelda:
+      return 'Random Chest';
+    default:
+      return 'Puzzle';
+  }
 };
 
 export {

@@ -28,6 +28,7 @@ export enum Puzzle {
   DinoCrisis = 'dinoCrisis',
   Konami = 'konami',
   Menu = 'menu',
+  Spyro = 'spyro',
   Zelda = 'zelda'
 }
 
