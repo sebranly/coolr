@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Save, Progress, RainbowColor, Puzzle } from '../types';
 import classnames from 'classnames';
 import { getPlural, getRandomInt, getRoomColor, getRupees, getRupeesColor } from '../utils';
-import { RUPEES_ENTRY_COST, RUPEES_INITIAL_COUNT } from '../constants';
+import { RUPEES_INITIAL_COUNT } from '../constants';
 
 export interface ZeldaProps {
   className?: string;
@@ -15,14 +15,12 @@ export interface ZeldaProps {
 
 const Zelda: React.FC<ZeldaProps> = (props) => {
   const { className, setSave, save, setPuzzle, setLogs, logs } = props;
-  const room1Msg = `${RUPEES_ENTRY_COST} rupee, ${getRupeesColor(RUPEES_ENTRY_COST)} rupee`;
 
   React.useEffect(
     () =>
       setLogs([
         ...logs,
         'Objective: Collect 50 Rupees',
-        `Entering room 1 costs ${room1Msg}`,
         'One chest has a key to next room, the other has rupees',
         `You currently have ${RUPEES_INITIAL_COUNT} rupee. You are in room 1`,
         `Pick a chest`
@@ -39,7 +37,7 @@ const Zelda: React.FC<ZeldaProps> = (props) => {
       setRoom(newRoom);
     } else {
       const deltaRupees = getRupees(room);
-      const newRupees = rupees + deltaRupees - RUPEES_ENTRY_COST;
+      const newRupees = rupees + deltaRupees;
 
       const chestMsg = `Chest had ${deltaRupees} ${getPlural('rupee', deltaRupees)}, ${getRupeesColor(
         deltaRupees
@@ -55,8 +53,7 @@ const Zelda: React.FC<ZeldaProps> = (props) => {
         setLogs([
           ...logs,
           chestMsg,
-          `You go back to room 1 and pay ${room1Msg}`,
-          `You now have ${newRupees} ${getPlural('rupee', newRupees)}`
+          `You go back to room 1 and now have ${newRupees} ${getPlural('rupee', newRupees)}`
         ]);
         setRoom(1);
         setRupees(newRupees);

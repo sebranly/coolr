@@ -28,7 +28,7 @@ const Notes: React.FC<NotesProps> = (props) => {
           ? `${word} italic`
           : '';
 
-      const successClass = word === 'Success:' ? 'green' : '';
+      const successClass = ['Congrats!', 'Success:'].includes(word) ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
       const objectiveClass = word === 'Objective:' ? 'orange' : '';
       const classes = classnames(objectiveClass, additionalClass, successClass, failureClass, 'inline');
