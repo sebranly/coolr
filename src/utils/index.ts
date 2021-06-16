@@ -156,9 +156,25 @@ const getRupeesColor = (rupees: number) => {
   if (rupees === 50) return RupeeColor.Purple;
 };
 
+const get4DigitsCode = () => {
+  const code: number[] = [];
+
+  while (code.length !== 4) {
+    let newDigit = getRandomInt(10);
+
+    while (code.includes(newDigit)) {
+      newDigit = getRandomInt(10);
+    }
+
+    code.push(newDigit);
+  }
+
+  return code;
+};
+
 const getPuzzleColor = (level: Color) => {
   const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis, Konami, Zelda, Spyro } = Puzzle;
+  const { Menu, DinoCrisis, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
 
   switch (level) {
     case Blue:
@@ -169,13 +185,15 @@ const getPuzzleColor = (level: Color) => {
       return Zelda;
     case Magenta:
       return Spyro;
+    case Cyan:
+      return SleepingDogs;
     default:
       return Menu;
   }
 };
 
 const getPuzzleText = (puzzle: Puzzle) => {
-  const { Menu, DinoCrisis, Konami, Spyro, Zelda } = Puzzle;
+  const { Menu, DinoCrisis, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
 
   switch (puzzle) {
     case Menu:
@@ -184,6 +202,8 @@ const getPuzzleText = (puzzle: Puzzle) => {
       return 'Gay Pride';
     case Konami:
       return 'Be like Konami';
+    case SleepingDogs:
+      return 'Code';
     case Spyro:
       return 'Master the Tiles';
     case Zelda:
@@ -211,5 +231,6 @@ export {
   getPuzzleColor,
   getRoomColor,
   getRupees,
-  getRupeesColor
+  getRupeesColor,
+  get4DigitsCode
 };

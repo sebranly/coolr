@@ -252,6 +252,19 @@ body {
   cursor: pointer;
 }
 
+.code {
+  font-size: 40px;
+}
+
+.button-digit:hover {
+  cursor: pointer;
+}
+
+.button-digit {
+  border: 1px solid white;
+  padding: 2px;
+}
+
 .square {
   border: 1px solid white;
 }

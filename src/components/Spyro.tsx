@@ -18,7 +18,7 @@ const Spyro: React.FC<SpyroProps> = (props) => {
   const [tiles, setTiles] = React.useState([false, true, false, true, true, true, false, true, false]);
 
   React.useEffect(
-    () => setLogs([...logs, 'Objective: Lit all the Tiles', `Clicking a tile toggles its state and its neighbors'`]),
+    () => setLogs([...logs, 'Objective: Lit all the tiles', `Clicking a tile toggles its state and its neighbors'`]),
     []
   );
 

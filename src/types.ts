@@ -28,6 +28,7 @@ export enum Puzzle {
   DinoCrisis = 'dinoCrisis',
   Konami = 'konami',
   Menu = 'menu',
+  SleepingDogs = 'sleepingDogs',
   Spyro = 'spyro',
   Zelda = 'zelda'
 }
@@ -53,4 +54,11 @@ export enum Move {
   Right = 'right',
   Up = 'up',
   Down = 'down'
+}
+
+export enum Clue {
+  Green = 'green',
+  Orange = 'orange',
+  Red = 'red',
+  White = 'white'
 }
