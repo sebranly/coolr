@@ -9,6 +9,8 @@ import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 import { DinoCrisis } from './components/DinoCrisis';
 import { Konami } from './components/Konami';
+import { SleepingDogs } from './components/SleepingDogs';
+import { Spyro } from './components/Spyro';
 import { Zelda } from './components/Zelda';
 
 import classnames from 'classnames';
@@ -36,7 +38,8 @@ const App = () => {
   const [save, setSave] = React.useState(getDefaultSave());
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
-  const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
+  // TODO: change
+  const [puzzle, setPuzzle] = React.useState(Puzzle.SleepingDogs);
 
   const onRejectLevel = (level: Color) => () => {
     setLogs([...logs, `Mix colors from floor 1 to access color ${level}`]);
@@ -80,10 +83,18 @@ const App = () => {
         const resultLevelMix3 = getResultLevelMix3(newLevels);
 
         setLevel(resultLevelMix3);
+        const levelSave = resultLevelMix3;
+        if (levelSave && (save as any)[levelSave] !== Progress.Done) {
+          setSave({ ...save, [levelSave]: Progress.Available });
+        }
       } else if (newLevels.length === 2) {
         const resultLevelMix2 = getResultLevelMix2(newLevels);
 
         setLevel(resultLevelMix2);
+        const levelSave = resultLevelMix2;
+        if (levelSave && (save as any)[levelSave] !== Progress.Done) {
+          setSave({ ...save, [levelSave]: Progress.Available });
+        }
       } else if (newLevels.length < 2) {
         setLevel(newLevels[0]);
       }
@@ -95,6 +106,10 @@ const App = () => {
         const resultLevelMix2 = getResultLevelMix2(newLevels);
 
         setLevel(resultLevelMix2);
+        const levelSave = resultLevelMix2;
+        if (levelSave && (save as any)[levelSave] !== Progress.Done) {
+          setSave({ ...save, [levelSave]: Progress.Available });
+        }
       } else if (newLevels.length < 2) {
         setLevel(newLevels[0]);
       }
@@ -165,6 +180,12 @@ const App = () => {
             )}
             {puzzle === Puzzle.Konami && (
               <Konami logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
+            {puzzle === Puzzle.SleepingDogs && (
+              <SleepingDogs logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
+            {puzzle === Puzzle.Spyro && (
+              <Spyro logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
             {puzzle === Puzzle.Zelda && (
               <Zelda logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />

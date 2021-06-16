@@ -9,10 +9,11 @@ const getPlural = (str: string, count: number) => {
 const getDefaultSave = () => {
   const { Available, Hidden, Done } = Progress;
 
+  // TODO: change
   const defaultSave: Save = {
-    red: Available,
-    green: Available,
-    blue: Available,
+    red: Done,
+    green: Done,
+    blue: Done,
     cyan: Hidden,
     magenta: Hidden,
     yellow: Hidden,
@@ -128,39 +129,6 @@ const getPowerLogs = (save: Save) => {
   return [MIX_ONE_COLOR_MSG, currentCode, codeMsg];
 };
 
-const getPuzzleColor = (level: Color) => {
-  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis, Konami, Zelda } = Puzzle;
-
-  switch (level) {
-    case Blue:
-      return Konami;
-    case Green:
-      return DinoCrisis;
-    case Red:
-      return Zelda;
-    default:
-      return Menu;
-  }
-};
-
-const getPuzzleText = (puzzle: Puzzle) => {
-  const { Menu, DinoCrisis, Konami, Zelda } = Puzzle;
-
-  switch (puzzle) {
-    case Menu:
-      return 'Menu';
-    case DinoCrisis:
-      return 'Gay Pride';
-    case Konami:
-      return 'Be like Konami';
-    case Zelda:
-      return 'Random Chest';
-    default:
-      return 'Puzzle';
-  }
-};
-
 const getRoomColor = (room: number) => {
   if (room < 3) return Color.Green;
   if (room < 5) return Color.Blue;
@@ -188,6 +156,63 @@ const getRupeesColor = (rupees: number) => {
   if (rupees === 50) return RupeeColor.Purple;
 };
 
+const get4DigitsCode = () => {
+  const code: number[] = [];
+
+  while (code.length !== 4) {
+    let newDigit = getRandomInt(10);
+
+    while (code.includes(newDigit)) {
+      newDigit = getRandomInt(10);
+    }
+
+    code.push(newDigit);
+  }
+
+  return code;
+};
+
+const getPuzzleColor = (level: Color) => {
+  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
+  const { Menu, DinoCrisis, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
+
+  switch (level) {
+    case Blue:
+      return Konami;
+    case Green:
+      return DinoCrisis;
+    case Red:
+      return Zelda;
+    case Magenta:
+      return Spyro;
+    case Cyan:
+      return SleepingDogs;
+    default:
+      return Menu;
+  }
+};
+
+const getPuzzleText = (puzzle: Puzzle) => {
+  const { Menu, DinoCrisis, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
+
+  switch (puzzle) {
+    case Menu:
+      return 'Menu';
+    case DinoCrisis:
+      return 'Gay Pride';
+    case Konami:
+      return 'Be like Konami';
+    case SleepingDogs:
+      return 'Code';
+    case Spyro:
+      return 'Master the Tiles';
+    case Zelda:
+      return 'Random Chest';
+    default:
+      return 'Puzzle';
+  }
+};
+
 export {
   getPlural,
   getRandomInt,
@@ -206,5 +231,6 @@ export {
   getPuzzleColor,
   getRoomColor,
   getRupees,
-  getRupeesColor
+  getRupeesColor,
+  get4DigitsCode
 };
