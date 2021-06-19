@@ -183,7 +183,7 @@ const getPuzzleColor = (level: Color) => {
       return DinoCrisis;
     case Red:
       return Zelda;
-    case Magenta:
+    case Yellow:
       return Spyro;
     case Cyan:
       return SleepingDogs;
@@ -205,7 +205,7 @@ const getPuzzleText = (puzzle: Puzzle) => {
     case SleepingDogs:
       return 'Code';
     case Spyro:
-      return 'Master the Tiles';
+      return 'Year of the Rabbit';
     case Zelda:
       return 'Random Chest';
     default:
