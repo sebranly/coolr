@@ -69,7 +69,7 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
     if (!hasLvl3) return null;
 
     return (
-      <>
+      <div className="flex-one">
         <br />
         <h2>Floor 3</h2>
         <div className="block">
@@ -81,7 +81,7 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
             miniSave={save.white}
           />
         </div>
-      </>
+      </div>
     );
   };
 
@@ -91,7 +91,7 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
     if (!hasLvl4) return null;
 
     return (
-      <>
+      <div className="flex-one">
         <br />
         <h2>Floor 4</h2>
         <div className="block">
@@ -103,7 +103,7 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
             miniSave={save.black}
           />
         </div>
-      </>
+      </div>
     );
   };
 
@@ -134,8 +134,10 @@ const PuzzleSelection: React.FC<PuzzleSelectionProps> = (props) => {
         />
       </div>
       {renderLevel2()}
-      {renderLevel3()}
-      {renderLevel4()}
+      <div className="flex">
+        {renderLevel3()}
+        {renderLevel4()}
+      </div>
     </>
   );
 };
