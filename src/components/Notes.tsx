@@ -1,16 +1,17 @@
 import * as React from 'react';
-import { Color, Move, Save, RainbowColor, RupeeColor } from '../types';
+import { Color, Move, Save, RainbowColor, RupeeColor, Puzzle } from '../types';
 import classnames from 'classnames';
 import { getPowerLogs } from '../utils';
 
 export interface NotesProps {
   className?: string;
   logs: string[];
+  puzzle: Puzzle;
   save: Save;
 }
 
 const Notes: React.FC<NotesProps> = (props) => {
-  const { className, logs, save } = props;
+  const { className, logs, puzzle, save } = props;
   const powerLogs = getPowerLogs(save);
   const reversedLogs = [...logs].reverse().slice(0, 5);
 
@@ -75,6 +76,7 @@ const Notes: React.FC<NotesProps> = (props) => {
 
   const renderPowerLogs = () => {
     if (!hasPowerLogs) return null;
+    if (puzzle !== Puzzle.Menu) return null;
 
     return (
       <>

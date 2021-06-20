@@ -36,6 +36,7 @@ const App = () => {
     'Make sure to write down any 5-letter code'
   ]);
 
+  const [code, setCode] = React.useState('');
   const [save, setSave] = React.useState(getDefaultSave());
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
@@ -47,22 +48,29 @@ const App = () => {
   };
 
   const onChangeCode = (e: any) => {
-    const code = e.currentTarget.value;
+    const newCode = e.currentTarget.value.toUpperCase();
 
-    if (code.length !== 5) return;
+    if (!newCode || /^[A-Z]+$/.test(newCode)) {
+      if (newCode.length <= 5) {
+        setCode(newCode);
 
-    // TODO: remove
-    if (code !== 'CHEAT') setLogs([...logs, `Failure: cheat code ${code} is invalid`]);
-    else {
-      setSave({ ...save, red: Progress.Done, green: Progress.Done, blue: Progress.Done });
-      setLogs([
-        ...logs,
-        `Success: cheat code ${code} is valid`,
-        'Save has been loaded',
-        'Colors red green blue are completed'
-      ]);
+        if (newCode.length === 5) {
+          // TODO: remove
+          if (newCode.length === 5 && newCode !== 'CHEAT')
+            setLogs([...logs, `Failure: cheat code ${newCode} is invalid`]);
+          else {
+            setSave({ ...save, red: Progress.Done, green: Progress.Done, blue: Progress.Done });
+            setLogs([
+              ...logs,
+              `Success: cheat code ${newCode} is valid`,
+              'Save has been loaded',
+              'Colors red green blue are completed'
+            ]);
 
-      setPuzzle(Puzzle.Menu);
+            setPuzzle(Puzzle.Menu);
+          }
+        }
+      }
     }
   };
 
@@ -201,9 +209,11 @@ const App = () => {
             )}
           </div>
           <div className="flex-one margin">
-            <Notes logs={logs} save={save} />
-            <br />
-            <input className="text-center" type="text" onChange={onChangeCode} />
+            <Notes puzzle={puzzle} logs={logs} save={save} />
+            {puzzle === Puzzle.Menu && <br />}
+            {puzzle === Puzzle.Menu && (
+              <input className="text-center" value={code} type="text" onChange={onChangeCode} />
+            )}
           </div>
         </div>
       </div>
