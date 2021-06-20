@@ -193,8 +193,12 @@ const getCodesInvalidMsg = (code: string) => {
   if (code === 'CHRIST') return `Nobody is coming to save you on this puzzle game`;
   if (code === 'COLORS') return `Just play the game, you'll see lots of colors :)`;
   if (code === 'FAITHY') return 'Nice try though Faithychouchou, hehe';
+  if (code === 'FRANCE') return `Tant pis, c'est la vie !`;
+  if (['FLOWER', 'NATURE'].includes(code)) return `If you find this game too hard, maybe have a break?`;
   if (code === 'HELPME') return `No thank you, I don't want to help you`;
   if (code === 'KONAMI') return `I'll give you a clue though: blue is Konami Code`;
+  if (code === 'LOSING') return `You are not losing, you are just not even trying`;
+  if (code === 'MAKEUP') return `Stop making up cheat codes!`;
   if (code === 'PELLAS') return `Nice try but that would be too easy`;
   if (code === 'PLEASE') return `Just play the game. Please and thank you!`;
   if (code === 'POWERS') return `You have some powers, but apparently guessing cheat codes is not one of them`;
