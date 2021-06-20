@@ -65,7 +65,7 @@ const App = () => {
     const newMode = mode === Mode.Additive ? Mode.Subtractive : Mode.Additive;
     setMode(newMode);
 
-    const levelsText = getLevelsText([], mode);
+    const levelsText = getLevelsText([], newMode);
     setLogs([...logs, `You are now using ${newMode} mixing!`, levelsText]);
     setLevel(undefined);
     setLevels([]);

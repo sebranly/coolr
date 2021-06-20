@@ -150,9 +150,13 @@ const getResultLevelMix3 = (levels: Color[], mode: Mode) => {
 
   const { Black, Red, Green, Blue, White, Cyan, Magenta, Yellow } = Color;
 
-  if (mode === Mode.Additive && levels.includes(Red) && levels.includes(Green) && levels.includes(Blue)) return White;
-  if (mode === Mode.Subtractive && levels.includes(Magenta) && levels.includes(Cyan) && levels.includes(Yellow))
+  if (mode === Mode.Additive && levels.includes(Red) && levels.includes(Green) && levels.includes(Blue)) {
+    return White;
+  }
+
+  if (mode === Mode.Subtractive && levels.includes(Magenta) && levels.includes(Cyan) && levels.includes(Yellow)) {
     return Black;
+  }
 
   return undefined;
 };

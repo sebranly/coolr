@@ -70,7 +70,7 @@ const Notes: React.FC<NotesProps> = (props) => {
           <div className={classes} key={key}>
             {word}
           </div>
-          <div className={'inline bg-black'}> </div>
+          <div className="inline bg-black"> </div>
         </>
       );
     });
