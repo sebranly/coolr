@@ -199,6 +199,9 @@ const getCodesInvalidMsg = (code: string) => {
   if (code === 'PUZZLE') return `You look puzzled though, that's too bad`;
   if (code === 'RANDOM') return `Maybe stop trying to guess cheat codes randomly?`;
   if (code === 'HELPME') return `No thank you, I don't want to help you`;
+  if (code === 'PLEASE') return `Just play the game. Please and thank you!`;
+  if (code === 'THANKS') return `I didn't load any save, but ok you're welcome I guess?`;
+  if (code === 'CHRIST') return `Nobody is coming to save you on this puzzle game`;
 
   return '';
 };
