@@ -58,8 +58,8 @@ const Spyro: React.FC<SpyroProps> = (props) => {
     setTiles(copyTiles);
 
     if (!copyTiles.some((t) => t === false)) {
-      setLogs([...logs, 'All tiles are lit', 'Congrats! Color magenta is completed']);
-      setSave({ ...save, magenta: Progress.Done });
+      setLogs([...logs, 'All tiles are lit', 'Congrats! Color yellow is completed']);
+      setSave({ ...save, yellow: Progress.Done });
       setPuzzle(Puzzle.Menu);
     }
   };
@@ -73,7 +73,7 @@ const Spyro: React.FC<SpyroProps> = (props) => {
           const squareClasses = classnames('inline flex-one', {
             'bg-white': isExistingTile && !tile,
             'bg-black': !isExistingTile,
-            'bg-violet': isExistingTile && tile,
+            'bg-yellow': isExistingTile && tile,
             tile: isExistingTile
           });
           return (

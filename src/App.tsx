@@ -8,6 +8,7 @@ import { Color, Progress, Puzzle } from './types';
 import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 import { DinoCrisis } from './components/DinoCrisis';
+import { Hexa } from './components/Hexa';
 import { Konami } from './components/Konami';
 import { SleepingDogs } from './components/SleepingDogs';
 import { Spyro } from './components/Spyro';
@@ -24,44 +25,78 @@ import {
   getResultLevelMix2,
   getResultLevelMix3,
   canMix3,
-  getNewLevelsMix3
+  getNewLevelsMix3,
+  isValidCode,
+  getColorPuzzle,
+  getCodesInvalidMsg
 } from './utils';
+import { CODE_BLUE, CODE_CYAN, CODE_GREEN, CODE_LENGTH, CODE_MAGENTA, CODE_RED, CODE_YELLOW } from './constants';
 
 const App = () => {
   const [logs, setLogs] = React.useState([
     'Welcome to Coolr',
     'This is a puzzle game',
     'If you refresh the page, you lose progress',
-    'Make sure to write down any 5-letter code'
+    `Make sure to write down any ${CODE_LENGTH}-letter cheat code`
   ]);
 
+  const [code, setCode] = React.useState('');
   const [save, setSave] = React.useState(getDefaultSave());
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
   // TODO: change
-  const [puzzle, setPuzzle] = React.useState(Puzzle.SleepingDogs);
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
 
   const onRejectLevel = (level: Color) => () => {
     setLogs([...logs, `Mix colors from floor 1 to access color ${level}`]);
   };
 
   const onChangeCode = (e: any) => {
-    const code = e.currentTarget.value;
+    const newCode = e.currentTarget.value.toUpperCase();
 
-    if (code.length !== 5) return;
+    if (!newCode || /^[A-Z]+$/.test(newCode)) {
+      if (newCode.length <= CODE_LENGTH) {
+        setCode(newCode);
 
-    // TODO: remove
-    if (code !== 'CHEAT') setLogs([...logs, `Failure: cheat code ${code} is invalid`]);
-    else {
-      setSave({ ...save, red: Progress.Done, green: Progress.Done, blue: Progress.Done });
-      setLogs([
-        ...logs,
-        `Success: cheat code ${code} is valid`,
-        'Save has been loaded',
-        'Colors red green blue are completed'
-      ]);
+        if (newCode.length === CODE_LENGTH) {
+          const msgInvalid = `Failure: cheat code ${newCode} is invalid`;
 
-      setPuzzle(Puzzle.Menu);
+          if (isValidCode(newCode)) {
+            const newLogs = [...logs, `Success: cheat code ${newCode} is valid`, 'Save has been loaded'];
+            const floor1 = { red: Progress.Done, green: Progress.Done, blue: Progress.Done };
+
+            if (newCode === CODE_RED) {
+              setSave({ ...save, red: Progress.Done });
+              newLogs.push('Color red is completed');
+            } else if (newCode === CODE_GREEN) {
+              setSave({ ...save, green: Progress.Done });
+              newLogs.push('Color green is completed');
+            } else if (newCode === CODE_BLUE) {
+              setSave({ ...save, blue: Progress.Done });
+              newLogs.push('Color blue is completed');
+            } else if (newCode === CODE_CYAN) {
+              setSave({ ...save, ...floor1, cyan: Progress.Done });
+              newLogs.push('Colors red green blue cyan are completed');
+            } else if (newCode === CODE_MAGENTA) {
+              setSave({ ...save, ...floor1, magenta: Progress.Done });
+              newLogs.push('Colors red green blue magenta are completed');
+            } else if (newCode === CODE_YELLOW) {
+              setSave({ ...save, ...floor1, yellow: Progress.Done });
+              newLogs.push('Colors red green blue yellow are completed');
+            }
+
+            setLogs(newLogs);
+            setPuzzle(Puzzle.Menu);
+          } else if (newCode.length === CODE_LENGTH) {
+            const additionalMsgInvalid = getCodesInvalidMsg(newCode);
+            const logsInvalid = additionalMsgInvalid
+              ? [...logs, msgInvalid, additionalMsgInvalid]
+              : [...logs, msgInvalid];
+
+            setLogs(logsInvalid);
+          }
+        }
+      }
     }
   };
 
@@ -128,10 +163,11 @@ const App = () => {
           <link rel="canonical" href="https://sebranly.github.io/coolr" />
         </Helmet>
         <div className="mobile">
-          <h1>Coolr: Puzzle Game</h1>
-          <div>
-            We are working hard to make this website accessible on mobile. In the meantime, please visit it on a
-            computer instead. Thank you for your understanding!
+          <h1>Coolr</h1>
+          <h2>Puzzle Game</h2>
+          <div className="margin">
+            This puzzle game is not accessible on mobile. Please visit it on a computer instead. Thank you for your
+            understanding!
           </div>
         </div>
         <br />
@@ -139,6 +175,18 @@ const App = () => {
       </HelmetProvider>
     );
   }
+
+  const renderSubheader = () => {
+    const subheader = getPuzzleText(puzzle);
+    const colorClass = getColorPuzzle(puzzle);
+
+    return (
+      <h2 className="italic">
+        <div className={`inline ${colorClass}`}>{subheader.charAt(0)}</div>
+        {subheader.substring(1)}
+      </h2>
+    );
+  };
 
   return (
     <HelmetProvider>
@@ -154,7 +202,7 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1 className="white">Coolr</h1>
-        <h2 className="white italic">{getPuzzleText(puzzle)}</h2>
+        {renderSubheader()}
 
         <div className="flex">
           <div className="flex-one margin">
@@ -178,6 +226,9 @@ const App = () => {
             {puzzle === Puzzle.DinoCrisis && (
               <DinoCrisis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
+            {puzzle === Puzzle.Hexa && (
+              <Hexa logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
             {puzzle === Puzzle.Konami && (
               <Konami logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
@@ -197,9 +248,11 @@ const App = () => {
             )}
           </div>
           <div className="flex-one margin">
-            <Notes logs={logs} save={save} />
-            <br />
-            <input className="text-center" type="text" onChange={onChangeCode} />
+            <Notes puzzle={puzzle} logs={logs} save={save} />
+            {puzzle === Puzzle.Menu && <br />}
+            {puzzle === Puzzle.Menu && (
+              <input className="text-center" value={code} type="text" onChange={onChangeCode} />
+            )}
           </div>
         </div>
       </div>

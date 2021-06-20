@@ -20,6 +20,10 @@ h1 {
   margin: 10px !important;
 }
 
+h2 {
+  margin: 10px !important;
+}
+
 .initial {
   font-size: calc(var(--avatar-size) / 2); /* 50% of parent */
   line-height: 1;
@@ -302,6 +306,37 @@ body {
   border: 1px solid white;
   background-color: brown;
   margin: 2%;
+}
+
+.hexa {
+  border: 1px solid white;
+  background-color: #FACADE;
+  color: black;
+  margin: 10%;
+}
+
+.bedbad {
+  color: #bedbad;
+}
+
+.daddad {
+  color: #daddad;
+}
+
+.dabbed {
+  color: #dabbed;
+}
+
+.bacfed {
+  color: #bacfed
+}
+
+.facade {
+  color: #facade;
+}
+
+.decade {
+  color: #decade
 }
 
 .chest:hover {

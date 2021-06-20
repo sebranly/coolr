@@ -32,7 +32,7 @@ const SleepingDogs: React.FC<SleepingDogsProps> = (props) => {
       setLogs([...logs, 'The code uses 4 unique digits']);
     } else {
       if (isEqual(correctCode, code)) {
-        setLogs([...logs, 'You found the correct code', 'Congrats! Color cyan is completed']);
+        setLogs([...logs, `You found the correct code: ${correctCode.join('')}`, 'Congrats! Color cyan is completed']);
         setSave({ ...save, cyan: Progress.Done });
         setPuzzle(Puzzle.Menu);
       } else {

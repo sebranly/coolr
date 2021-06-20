@@ -26,6 +26,7 @@ export interface Save {
 
 export enum Puzzle {
   DinoCrisis = 'dinoCrisis',
+  Hexa = 'hexa',
   Konami = 'konami',
   Menu = 'menu',
   SleepingDogs = 'sleepingDogs',

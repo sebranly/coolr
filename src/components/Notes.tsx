@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { Color, Move, Save, RainbowColor, RupeeColor } from '../types';
+import { Color, Move, Save, RainbowColor, RupeeColor, Puzzle } from '../types';
 import classnames from 'classnames';
 import { getPowerLogs } from '../utils';
+import { VALID_CODES } from '../constants';
 
 export interface NotesProps {
   className?: string;
   logs: string[];
+  puzzle: Puzzle;
   save: Save;
 }
 
 const Notes: React.FC<NotesProps> = (props) => {
-  const { className, logs, save } = props;
+  const { className, logs, puzzle, save } = props;
   const powerLogs = getPowerLogs(save);
   const reversedLogs = [...logs].reverse().slice(0, 5);
 
@@ -28,10 +30,22 @@ const Notes: React.FC<NotesProps> = (props) => {
           ? `${word} italic`
           : '';
 
+      const italicClass = word === 'hexactly' ? 'italic' : '';
+      const codeClass = VALID_CODES.includes(word) ? word.toLowerCase() : '';
+
       const successClass = ['Congrats!', 'Success:'].includes(word) ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
       const objectiveClass = word === 'Objective:' ? 'orange' : '';
-      const classes = classnames(objectiveClass, additionalClass, successClass, failureClass, 'inline');
+      const classes = classnames(
+        codeClass,
+        objectiveClass,
+        italicClass,
+        additionalClass,
+        successClass,
+        failureClass,
+        'inline'
+      );
+
       const key = `${word}-${index}`;
 
       if (word === 'rainbow!') {
@@ -56,14 +70,25 @@ const Notes: React.FC<NotesProps> = (props) => {
     });
   };
 
-  const renderPowerLog = (log: string) => (
-    <div className="inline power" key={log}>
-      {log}
-    </div>
-  );
+  const renderPowerLog = (log: string) => {
+    const words = log.split(' ');
+
+    return words.map((word: string, index) => {
+      const codeClass = VALID_CODES.includes(word) ? word.toLowerCase() : '';
+      const classes = classnames('inline power', codeClass);
+      const key = `${word}-${index}`;
+
+      return (
+        <div className={classes} key={key}>
+          {word}{' '}
+        </div>
+      );
+    });
+  };
 
   const renderPowerLogs = () => {
     if (!hasPowerLogs) return null;
+    if (puzzle !== Puzzle.Menu) return null;
 
     return (
       <>
