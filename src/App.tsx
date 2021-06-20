@@ -208,6 +208,11 @@ const App = () => {
     );
   };
 
+  const classesMixing = classnames('button', {
+    additive: mode === Mode.Additive,
+    subtractive: mode === Mode.Subtractive
+  });
+
   return (
     <HelmetProvider>
       <link
@@ -275,7 +280,7 @@ const App = () => {
               <input className="text-center" value={code} type="text" onChange={onChangeCode} />
             )}
             {save.white === Progress.Done && (
-              <div className="button" onClick={toggleMode}>
+              <div className={classesMixing} onClick={toggleMode}>
                 Toggle Mixing
               </div>
             )}

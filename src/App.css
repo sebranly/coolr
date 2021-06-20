@@ -344,3 +344,13 @@ body {
   cursor: pointer;
   font-weight: bold;
 }
+
+.additive {
+  color: black;
+  background-color: white;
+}
+
+.subtractive {
+  color: white;
+  background-color: black;
+}
