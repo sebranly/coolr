@@ -27,7 +27,8 @@ import {
   canMix3,
   getNewLevelsMix3,
   isValidCode,
-  getColorPuzzle
+  getColorPuzzle,
+  getCodesInvalidMsg
 } from './utils';
 import { CODE_BLUE, CODE_CYAN, CODE_GREEN, CODE_LENGTH, CODE_MAGENTA, CODE_RED, CODE_YELLOW } from './constants';
 
@@ -36,7 +37,7 @@ const App = () => {
     'Welcome to Coolr',
     'This is a puzzle game',
     'If you refresh the page, you lose progress',
-    `Make sure to write down any ${CODE_LENGTH}-letter code`
+    `Make sure to write down any ${CODE_LENGTH}-letter cheat code`
   ]);
 
   const [code, setCode] = React.useState('');
@@ -58,6 +59,8 @@ const App = () => {
         setCode(newCode);
 
         if (newCode.length === CODE_LENGTH) {
+          const msgInvalid = `Failure: cheat code ${newCode} is invalid`;
+
           if (isValidCode(newCode)) {
             const newLogs = [...logs, `Success: cheat code ${newCode} is valid`, 'Save has been loaded'];
             const floor1 = { red: Progress.Done, green: Progress.Done, blue: Progress.Done };
@@ -85,7 +88,12 @@ const App = () => {
             setLogs(newLogs);
             setPuzzle(Puzzle.Menu);
           } else if (newCode.length === CODE_LENGTH) {
-            setLogs([...logs, `Failure: cheat code ${newCode} is invalid`]);
+            const additionalMsgInvalid = getCodesInvalidMsg(newCode);
+            const logsInvalid = additionalMsgInvalid
+              ? [...logs, msgInvalid, additionalMsgInvalid]
+              : [...logs, msgInvalid];
+
+            setLogs(logsInvalid);
           }
         }
       }

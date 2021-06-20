@@ -133,7 +133,7 @@ const getResultLevelMix3 = (levels: Color[]) => {
 
 const getPowerLogs = (save: Save) => {
   const currentCode = '';
-  const codeMsg = `Or type a ${CODE_LENGTH}-letter code below to load a save`;
+  const codeMsg = `Or type a ${CODE_LENGTH}-letter cheat code below to load a save`;
   const codes = getCodes(save);
   const commonLogsTemp = [currentCode, codeMsg];
   const commonLogs =
@@ -186,6 +186,21 @@ const get4DigitsCode = () => {
   }
 
   return code;
+};
+
+const getCodesInvalidMsg = (code: string) => {
+  if (code === 'FAITHY') return 'Nice try though Faithychouchou, hehe';
+  if (code === 'BIATCH') return `Also, that's not nice. You think you're Snoop Dogg?`;
+  if (code === 'PELLAS') return `Nice try but that would be too easy`;
+  if (code === 'COLORS') return `Just play the game, you'll see lots of colors :)`;
+  if (code === 'KONAMI') return `I'll give you a clue though: blue is Konami Code`;
+  if (['DRAGON', 'YELLOW'].includes(code)) return `A clue though: yellow is from Spyro 2, Idol Springs`;
+  if (code === 'POWERS') return `You have some powers, but apparently guessing cheat codes is not one of them`;
+  if (code === 'PUZZLE') return `You look puzzled though, that's too bad`;
+  if (code === 'RANDOM') return `Maybe stop trying to guess cheat codes randomly?`;
+  if (code === 'HELPME') return `No thank you, I don't want to help you`;
+
+  return '';
 };
 
 const getColorPuzzle = (puzzle: Puzzle) => {
@@ -241,7 +256,7 @@ const getPuzzleText = (puzzle: Puzzle) => {
     case DinoCrisis:
       return 'Gay Pride';
     case Hexa:
-      return 'MTODO';
+      return 'Mathematical Base';
     case Konami:
       return 'Be like Konami';
     case SleepingDogs:
@@ -287,6 +302,7 @@ const getCodes = (save: Save) => {
 export {
   getColorPuzzle,
   getCodes,
+  getCodesInvalidMsg,
   getPlural,
   getRandomInt,
   getResultLevelMix2,
