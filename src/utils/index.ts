@@ -188,6 +188,28 @@ const get4DigitsCode = () => {
   return code;
 };
 
+const getColorPuzzle = (puzzle: Puzzle) => {
+  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
+  const { Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
+
+  switch (puzzle) {
+    case Konami:
+      return Blue;
+    case DinoCrisis:
+      return Green;
+    case Hexa:
+      return Magenta;
+    case Zelda:
+      return Red;
+    case Spyro:
+      return Yellow;
+    case SleepingDogs:
+      return Cyan;
+    default:
+      return White;
+  }
+};
+
 const getPuzzleColor = (level: Color) => {
   const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
   const { Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
@@ -263,6 +285,7 @@ const getCodes = (save: Save) => {
 };
 
 export {
+  getColorPuzzle,
   getCodes,
   getPlural,
   getRandomInt,

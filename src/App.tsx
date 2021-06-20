@@ -26,7 +26,8 @@ import {
   getResultLevelMix3,
   canMix3,
   getNewLevelsMix3,
-  isValidCode
+  isValidCode,
+  getColorPuzzle
 } from './utils';
 import { CODE_BLUE, CODE_CYAN, CODE_GREEN, CODE_LENGTH, CODE_MAGENTA, CODE_RED, CODE_YELLOW } from './constants';
 
@@ -154,8 +155,9 @@ const App = () => {
           <link rel="canonical" href="https://sebranly.github.io/coolr" />
         </Helmet>
         <div className="mobile">
-          <h1>Coolr: Puzzle Game</h1>
-          <div>
+          <h1>Coolr</h1>
+          <h2>Puzzle Game</h2>
+          <div className="margin">
             This puzzle game is not accessible on mobile. Please visit it on a computer instead. Thank you for your
             understanding!
           </div>
@@ -165,6 +167,18 @@ const App = () => {
       </HelmetProvider>
     );
   }
+
+  const renderSubheader = () => {
+    const subheader = getPuzzleText(puzzle);
+    const colorClass = getColorPuzzle(puzzle);
+
+    return (
+      <h2 className="italic">
+        <div className={`inline ${colorClass}`}>{subheader.charAt(0)}</div>
+        {subheader.substring(1)}
+      </h2>
+    );
+  };
 
   return (
     <HelmetProvider>
@@ -180,7 +194,7 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1 className="white">Coolr</h1>
-        <h2 className="white italic">{getPuzzleText(puzzle)}</h2>
+        {renderSubheader()}
 
         <div className="flex">
           <div className="flex-one margin">
