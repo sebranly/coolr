@@ -1,4 +1,12 @@
+export const CODE_LENGTH = 6;
 export const MIX_ONE_COLOR_MSG = 'You can select 1 color!';
-export const MIX_TWO_COLORS_MSG = 'You can select up to 2 colors!';
-export const MIX_THREE_COLORS_MSG = 'You can select up to 3 colors!';
+export const MIX_TWO_COLORS_MSG = 'You completed floor 1! You can select up to 2 colors!';
+export const MIX_THREE_COLORS_MSG = 'You completed both floor 1 and floor 2! You can select up to 3 colors!';
 export const RUPEES_INITIAL_COUNT = 1;
+export const CODE_RED = 'BEDBAD';
+export const CODE_BLUE = 'DABBED';
+export const CODE_GREEN = 'BEDEAD';
+export const CODE_CYAN = 'BACFED';
+export const CODE_MAGENTA = 'FACADE';
+export const CODE_YELLOW = 'DECADE';
+export const VALID_CODES = [CODE_RED, CODE_GREEN, CODE_BLUE, CODE_CYAN, CODE_MAGENTA, CODE_YELLOW];

@@ -311,8 +311,28 @@ body {
   margin: 10%;
 }
 
+.bedbad {
+  color: #bedbad;
+}
+
+.bedead {
+  color: #bedead;
+}
+
+.dabbed {
+  color: #dabbed;
+}
+
+.bacfed {
+  color: #bacfed
+}
+
 .facade {
   color: #facade;
+}
+
+.decade {
+  color: #decade
 }
 
 .chest:hover {

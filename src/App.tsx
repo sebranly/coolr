@@ -25,15 +25,17 @@ import {
   getResultLevelMix2,
   getResultLevelMix3,
   canMix3,
-  getNewLevelsMix3
+  getNewLevelsMix3,
+  isValidCode
 } from './utils';
+import { CODE_BLUE, CODE_CYAN, CODE_GREEN, CODE_LENGTH, CODE_MAGENTA, CODE_RED, CODE_YELLOW } from './constants';
 
 const App = () => {
   const [logs, setLogs] = React.useState([
     'Welcome to Coolr',
     'This is a puzzle game',
     'If you refresh the page, you lose progress',
-    'Make sure to write down any 5-letter code'
+    `Make sure to write down any ${CODE_LENGTH}-letter code`
   ]);
 
   const [code, setCode] = React.useState('');
@@ -41,7 +43,7 @@ const App = () => {
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
   // TODO: change
-  const [puzzle, setPuzzle] = React.useState(Puzzle.Hexa);
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
 
   const onRejectLevel = (level: Color) => () => {
     setLogs([...logs, `Mix colors from floor 1 to access color ${level}`]);
@@ -51,23 +53,38 @@ const App = () => {
     const newCode = e.currentTarget.value.toUpperCase();
 
     if (!newCode || /^[A-Z]+$/.test(newCode)) {
-      if (newCode.length <= 5) {
+      if (newCode.length <= CODE_LENGTH) {
         setCode(newCode);
 
-        if (newCode.length === 5) {
-          // TODO: remove
-          if (newCode.length === 5 && newCode !== 'CHEAT')
-            setLogs([...logs, `Failure: cheat code ${newCode} is invalid`]);
-          else {
-            setSave({ ...save, red: Progress.Done, green: Progress.Done, blue: Progress.Done });
-            setLogs([
-              ...logs,
-              `Success: cheat code ${newCode} is valid`,
-              'Save has been loaded',
-              'Colors red green blue are completed'
-            ]);
+        if (newCode.length === CODE_LENGTH) {
+          if (isValidCode(newCode)) {
+            const newLogs = [...logs, `Success: cheat code ${newCode} is valid`, 'Save has been loaded'];
+            const floor1 = { red: Progress.Done, green: Progress.Done, blue: Progress.Done };
 
+            if (newCode === CODE_RED) {
+              setSave({ ...save, red: Progress.Done });
+              newLogs.push('Color red is completed');
+            } else if (newCode === CODE_GREEN) {
+              setSave({ ...save, green: Progress.Done });
+              newLogs.push('Color green is completed');
+            } else if (newCode === CODE_BLUE) {
+              setSave({ ...save, blue: Progress.Done });
+              newLogs.push('Color blue is completed');
+            } else if (newCode === CODE_CYAN) {
+              setSave({ ...save, ...floor1, cyan: Progress.Done });
+              newLogs.push('Colors red green blue cyan are completed');
+            } else if (newCode === CODE_MAGENTA) {
+              setSave({ ...save, ...floor1, magenta: Progress.Done });
+              newLogs.push('Colors red green blue magenta are completed');
+            } else if (newCode === CODE_YELLOW) {
+              setSave({ ...save, ...floor1, yellow: Progress.Done });
+              newLogs.push('Colors red green blue yellow are completed');
+            }
+
+            setLogs(newLogs);
             setPuzzle(Puzzle.Menu);
+          } else if (newCode.length === CODE_LENGTH) {
+            setLogs([...logs, `Failure: cheat code ${newCode} is invalid`]);
           }
         }
       }
@@ -139,8 +156,8 @@ const App = () => {
         <div className="mobile">
           <h1>Coolr: Puzzle Game</h1>
           <div>
-            We are working hard to make this website accessible on mobile. In the meantime, please visit it on a
-            computer instead. Thank you for your understanding!
+            This puzzle game is not accessible on mobile. Please visit it on a computer instead. Thank you for your
+            understanding!
           </div>
         </div>
         <br />

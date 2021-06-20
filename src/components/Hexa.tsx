@@ -24,7 +24,7 @@ const Hexa: React.FC<HexaProps> = (props) => {
     const newCode = e.currentTarget.value.toUpperCase();
 
     if (newCode === 'FACADE') {
-      setLogs([...logs, 'You found the 6-letter word: #FACADE', 'Congrats! Color magenta is completed']);
+      setLogs([...logs, 'You found the 6-letter word: FACADE', 'Congrats! Color magenta is completed']);
       setSave({ ...save, magenta: Progress.Done });
       setPuzzle(Puzzle.Menu);
     } else if (newCode.length === 0) {

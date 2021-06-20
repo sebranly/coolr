@@ -1,4 +1,16 @@
-import { MIX_ONE_COLOR_MSG, MIX_THREE_COLORS_MSG, MIX_TWO_COLORS_MSG } from '../constants';
+import {
+  CODE_RED,
+  CODE_BLUE,
+  CODE_GREEN,
+  CODE_CYAN,
+  CODE_LENGTH,
+  CODE_MAGENTA,
+  CODE_YELLOW,
+  MIX_ONE_COLOR_MSG,
+  MIX_THREE_COLORS_MSG,
+  MIX_TWO_COLORS_MSG,
+  VALID_CODES
+} from '../constants';
 import { Color, Progress, Save, Puzzle, RupeeColor } from '../types';
 
 const getPlural = (str: string, count: number) => {
@@ -11,9 +23,9 @@ const getDefaultSave = () => {
 
   // TODO: change
   const defaultSave: Save = {
-    red: Done,
-    green: Done,
-    blue: Done,
+    red: Available,
+    green: Available,
+    blue: Available,
     cyan: Hidden,
     magenta: Hidden,
     yellow: Hidden,
@@ -121,12 +133,16 @@ const getResultLevelMix3 = (levels: Color[]) => {
 
 const getPowerLogs = (save: Save) => {
   const currentCode = '';
-  const codeMsg = 'Or type a 5-letter code below to load a save';
+  const codeMsg = `Or type a ${CODE_LENGTH}-letter code below to load a save`;
+  const codes = getCodes(save);
+  const commonLogsTemp = [currentCode, codeMsg];
+  const commonLogs =
+    codes.length > 0 ? [...commonLogsTemp, `Unlocked cheat code(s): ${codes.join(' ')}`] : commonLogsTemp;
 
-  if (canMix3(save)) return [MIX_THREE_COLORS_MSG, currentCode, codeMsg];
-  if (canMix2(save)) return [MIX_TWO_COLORS_MSG, currentCode, codeMsg];
+  if (canMix3(save)) return [MIX_THREE_COLORS_MSG, ...commonLogs];
+  if (canMix2(save)) return [MIX_TWO_COLORS_MSG, ...commonLogs];
 
-  return [MIX_ONE_COLOR_MSG, currentCode, codeMsg];
+  return [MIX_ONE_COLOR_MSG, ...commonLogs];
 };
 
 const getRoomColor = (room: number) => {
@@ -217,7 +233,37 @@ const getPuzzleText = (puzzle: Puzzle) => {
   }
 };
 
+const isValidCode = (code: string) => {
+  return VALID_CODES.includes(code);
+};
+
+const getCodes = (save: Save) => {
+  const codes: string[] = [];
+
+  const { red, green, blue, cyan, magenta, yellow } = save;
+  const { Done } = Progress;
+
+  if (cyan === Done || magenta === Done || yellow === Done) {
+    if (cyan === Done) codes.push(CODE_CYAN);
+    if (magenta === Done) codes.push(CODE_MAGENTA);
+    if (yellow === Done) codes.push(CODE_YELLOW);
+
+    return codes;
+  }
+
+  if (red === Done || green === Done || blue === Done) {
+    if (red === Done) codes.push(CODE_RED);
+    if (green === Done) codes.push(CODE_GREEN);
+    if (blue === Done) codes.push(CODE_BLUE);
+
+    return codes;
+  }
+
+  return codes;
+};
+
 export {
+  getCodes,
   getPlural,
   getRandomInt,
   getResultLevelMix2,
@@ -236,5 +282,6 @@ export {
   getRoomColor,
   getRupees,
   getRupeesColor,
-  get4DigitsCode
+  get4DigitsCode,
+  isValidCode
 };

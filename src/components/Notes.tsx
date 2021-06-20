@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Color, Move, Save, RainbowColor, RupeeColor, Puzzle } from '../types';
 import classnames from 'classnames';
 import { getPowerLogs } from '../utils';
+import { VALID_CODES } from '../constants';
 
 export interface NotesProps {
   className?: string;
@@ -30,13 +31,13 @@ const Notes: React.FC<NotesProps> = (props) => {
           : '';
 
       const italicClass = word === 'hexactly' ? 'italic' : '';
-      const facadeClass = word === '#FACADE' ? 'facade' : '';
+      const codeClass = VALID_CODES.includes(word) ? word.toLowerCase() : '';
 
       const successClass = ['Congrats!', 'Success:'].includes(word) ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
       const objectiveClass = word === 'Objective:' ? 'orange' : '';
       const classes = classnames(
-        facadeClass,
+        codeClass,
         objectiveClass,
         italicClass,
         additionalClass,
@@ -44,6 +45,7 @@ const Notes: React.FC<NotesProps> = (props) => {
         failureClass,
         'inline'
       );
+
       const key = `${word}-${index}`;
 
       if (word === 'rainbow!') {
@@ -68,11 +70,21 @@ const Notes: React.FC<NotesProps> = (props) => {
     });
   };
 
-  const renderPowerLog = (log: string) => (
-    <div className="inline power" key={log}>
-      {log}
-    </div>
-  );
+  const renderPowerLog = (log: string) => {
+    const words = log.split(' ');
+
+    return words.map((word: string, index) => {
+      const codeClass = VALID_CODES.includes(word) ? word.toLowerCase() : '';
+      const classes = classnames('inline power', codeClass);
+      const key = `${word}-${index}`;
+
+      return (
+        <div className={classes} key={key}>
+          {word}{' '}
+        </div>
+      );
+    });
+  };
 
   const renderPowerLogs = () => {
     if (!hasPowerLogs) return null;
