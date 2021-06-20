@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
-import { Color, Progress, Puzzle } from './types';
+import { Color, Mode, Progress, Puzzle } from './types';
 import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 import { DinoCrisis } from './components/DinoCrisis';
@@ -33,6 +33,7 @@ import {
 import { CODE_BLUE, CODE_CYAN, CODE_GREEN, CODE_LENGTH, CODE_MAGENTA, CODE_RED, CODE_YELLOW } from './constants';
 
 const App = () => {
+  const [mode, setMode] = React.useState(Mode.Additive);
   const [logs, setLogs] = React.useState([
     'Welcome to Coolr',
     'This is a puzzle game',
@@ -48,7 +49,26 @@ const App = () => {
   const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
 
   const onRejectLevel = (level: Color) => () => {
-    setLogs([...logs, `Mix colors from floor 1 to access color ${level}`]);
+    const floorIndex = mode === Mode.Additive ? 1 : 2;
+    const isBlackInaccessible = level === Color.Black && mode === Mode.Additive;
+    const isWhiteInaccessible = level === Color.White && mode === Mode.Subtractive;
+
+    const isInaccessible = isBlackInaccessible || isWhiteInaccessible;
+    if (isInaccessible) {
+      setLogs([...logs, `${level} cannot be accessed in ${mode} mixing`]);
+    } else {
+      setLogs([...logs, `Mix colors from floor ${floorIndex} to access color ${level}`]);
+    }
+  };
+
+  const toggleMode = () => {
+    const newMode = mode === Mode.Additive ? Mode.Subtractive : Mode.Additive;
+    setMode(newMode);
+
+    const levelsText = getLevelsText([]);
+    setLogs([...logs, `You are now using ${newMode} mixing!`, levelsText]);
+    setLevel(undefined);
+    setLevels([]);
   };
 
   const onChangeCode = (e: any) => {
@@ -210,6 +230,7 @@ const App = () => {
               <>
                 <PuzzleSelection
                   levels={levels}
+                  mode={mode}
                   onRejectLevel={onRejectLevel}
                   onSelectLevel={onSelectLevel}
                   save={save}
@@ -252,6 +273,11 @@ const App = () => {
             {puzzle === Puzzle.Menu && <br />}
             {puzzle === Puzzle.Menu && (
               <input className="text-center" value={code} type="text" onChange={onChangeCode} />
+            )}
+            {save.white === Progress.Done && (
+              <div className="button" onClick={toggleMode}>
+                Toggle Mixing
+              </div>
             )}
           </div>
         </div>

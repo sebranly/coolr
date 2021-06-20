@@ -9,7 +9,8 @@ import {
   MIX_ONE_COLOR_MSG,
   MIX_THREE_COLORS_MSG,
   MIX_TWO_COLORS_MSG,
-  VALID_CODES
+  VALID_CODES,
+  MIX_MODE_MSG
 } from '../constants';
 import { Color, Progress, Save, Puzzle, RupeeColor } from '../types';
 
@@ -23,13 +24,14 @@ const getDefaultSave = () => {
 
   // TODO: change
   const defaultSave: Save = {
-    red: Available,
-    green: Available,
-    blue: Available,
-    cyan: Hidden,
-    magenta: Hidden,
-    yellow: Hidden,
-    white: Hidden
+    red: Done,
+    green: Done,
+    blue: Done,
+    cyan: Done,
+    magenta: Done,
+    yellow: Done,
+    white: Done,
+    black: Available
   };
 
   return defaultSave;
@@ -50,16 +52,23 @@ const canMix2 = (save: Save) => {
 const canMix3 = (save: Save) => {
   const { Done } = Progress;
 
-  const { red, green, blue, magenta, yellow, cyan } = save;
+  const { magenta, yellow, cyan } = save;
 
-  const redDone = red === Done;
-  const greenDone = green === Done;
-  const blueDone = blue === Done;
   const magentaDone = magenta === Done;
   const yellowDone = yellow === Done;
   const cyanDone = cyan === Done;
 
-  return redDone && greenDone && blueDone && magentaDone && yellowDone && cyanDone;
+  return canMix2(save) && magentaDone && yellowDone && cyanDone;
+};
+
+const canUseSubtractiveMix = (save: Save) => {
+  const { Done } = Progress;
+
+  const { white } = save;
+
+  const whiteDone = white === Done;
+
+  return canMix3(save) && whiteDone;
 };
 
 const hasLevel2 = (save: Save) => {
@@ -74,6 +83,13 @@ const hasLevel3 = (save: Save) => {
   const { white } = save;
 
   return white !== Hidden;
+};
+
+const hasLevel4 = (save: Save) => {
+  const { Hidden } = Progress;
+  const { black } = save;
+
+  return black !== Hidden;
 };
 
 const getNewLevelsMix2 = (levels: Color[], level: Color) => {
@@ -139,6 +155,7 @@ const getPowerLogs = (save: Save) => {
   const commonLogs =
     codes.length > 0 ? [...commonLogsTemp, `Unlocked cheat code(s): ${codes.join(' ')}`] : commonLogsTemp;
 
+  if (canUseSubtractiveMix(save)) return [MIX_MODE_MSG, ...commonLogs];
   if (canMix3(save)) return [MIX_THREE_COLORS_MSG, ...commonLogs];
   if (canMix2(save)) return [MIX_TWO_COLORS_MSG, ...commonLogs];
 
@@ -307,6 +324,7 @@ const getCodes = (save: Save) => {
 };
 
 export {
+  canUseSubtractiveMix,
   getColorPuzzle,
   getCodes,
   getCodesInvalidMsg,
@@ -319,6 +337,7 @@ export {
   getDefaultSave,
   hasLevel2,
   hasLevel3,
+  hasLevel4,
   getLevelsText,
   getNewLevelsMix2,
   getNewLevelsMix3,

@@ -30,13 +30,16 @@ const Notes: React.FC<NotesProps> = (props) => {
           ? `${word} italic`
           : '';
 
+      const bgClass = word === Color.Black ? 'bg-white' : '';
+
       const italicClass = word === 'hexactly' ? 'italic' : '';
       const codeClass = VALID_CODES.includes(word) ? word.toLowerCase() : '';
 
       const successClass = ['Congrats!', 'Success:'].includes(word) ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
-      const objectiveClass = word === 'Objective:' ? 'orange' : '';
+      const objectiveClass = ['Objective:', 'additive', 'subtractive'].includes(word) ? 'orange' : '';
       const classes = classnames(
+        bgClass,
         codeClass,
         objectiveClass,
         italicClass,
@@ -63,9 +66,12 @@ const Notes: React.FC<NotesProps> = (props) => {
       }
 
       return (
-        <div className={classes} key={key}>
-          {word}{' '}
-        </div>
+        <>
+          <div className={classes} key={key}>
+            {word}
+          </div>
+          <div className={'inline bg-black'}> </div>
+        </>
       );
     });
   };
