@@ -8,6 +8,7 @@ import { Color, Progress, Puzzle } from './types';
 import { PuzzleSelection } from './components/PuzzleSelection';
 import { Notes } from './components/Notes';
 import { DinoCrisis } from './components/DinoCrisis';
+import { Hexa } from './components/Hexa';
 import { Konami } from './components/Konami';
 import { SleepingDogs } from './components/SleepingDogs';
 import { Spyro } from './components/Spyro';
@@ -39,7 +40,7 @@ const App = () => {
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
   // TODO: change
-  const [puzzle, setPuzzle] = React.useState(Puzzle.SleepingDogs);
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Hexa);
 
   const onRejectLevel = (level: Color) => () => {
     setLogs([...logs, `Mix colors from floor 1 to access color ${level}`]);
@@ -177,6 +178,9 @@ const App = () => {
 
             {puzzle === Puzzle.DinoCrisis && (
               <DinoCrisis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
+            {puzzle === Puzzle.Hexa && (
+              <Hexa logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
             {puzzle === Puzzle.Konami && (
               <Konami logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />

@@ -28,10 +28,21 @@ const Notes: React.FC<NotesProps> = (props) => {
           ? `${word} italic`
           : '';
 
+      const italicClass = word === 'hexactly' ? 'italic' : '';
+      const facadeClass = word === '#FACADE' ? 'facade' : '';
+
       const successClass = ['Congrats!', 'Success:'].includes(word) ? 'green' : '';
       const failureClass = word === 'Failure:' ? 'red' : '';
       const objectiveClass = word === 'Objective:' ? 'orange' : '';
-      const classes = classnames(objectiveClass, additionalClass, successClass, failureClass, 'inline');
+      const classes = classnames(
+        facadeClass,
+        objectiveClass,
+        italicClass,
+        additionalClass,
+        successClass,
+        failureClass,
+        'inline'
+      );
       const key = `${word}-${index}`;
 
       if (word === 'rainbow!') {

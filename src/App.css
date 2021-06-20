@@ -304,6 +304,17 @@ body {
   margin: 2%;
 }
 
+.hexa {
+  border: 1px solid white;
+  background-color: #FACADE;
+  color: black;
+  margin: 10%;
+}
+
+.facade {
+  color: #facade;
+}
+
 .chest:hover {
   cursor: pointer;
   font-weight: bold;

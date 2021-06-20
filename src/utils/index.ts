@@ -174,13 +174,15 @@ const get4DigitsCode = () => {
 
 const getPuzzleColor = (level: Color) => {
   const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
+  const { Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
 
   switch (level) {
     case Blue:
       return Konami;
     case Green:
       return DinoCrisis;
+    case Magenta:
+      return Hexa;
     case Red:
       return Zelda;
     case Yellow:
@@ -193,13 +195,15 @@ const getPuzzleColor = (level: Color) => {
 };
 
 const getPuzzleText = (puzzle: Puzzle) => {
-  const { Menu, DinoCrisis, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
+  const { Menu, DinoCrisis, Hexa, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
 
   switch (puzzle) {
     case Menu:
       return 'Menu';
     case DinoCrisis:
       return 'Gay Pride';
+    case Hexa:
+      return 'MTODO';
     case Konami:
       return 'Be like Konami';
     case SleepingDogs:
