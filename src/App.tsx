@@ -65,7 +65,7 @@ const App = () => {
     const newMode = mode === Mode.Additive ? Mode.Subtractive : Mode.Additive;
     setMode(newMode);
 
-    const levelsText = getLevelsText([]);
+    const levelsText = getLevelsText([], mode);
     setLogs([...logs, `You are now using ${newMode} mixing!`, levelsText]);
     setLevel(undefined);
     setLevels([]);
@@ -135,7 +135,7 @@ const App = () => {
       setLevels(newLevels);
 
       if (newLevels.length === 3) {
-        const resultLevelMix3 = getResultLevelMix3(newLevels);
+        const resultLevelMix3 = getResultLevelMix3(newLevels, mode);
 
         setLevel(resultLevelMix3);
         const levelSave = resultLevelMix3;
@@ -143,7 +143,7 @@ const App = () => {
           setSave({ ...save, [levelSave]: Progress.Available });
         }
       } else if (newLevels.length === 2) {
-        const resultLevelMix2 = getResultLevelMix2(newLevels);
+        const resultLevelMix2 = getResultLevelMix2(newLevels, mode);
 
         setLevel(resultLevelMix2);
         const levelSave = resultLevelMix2;
@@ -158,7 +158,7 @@ const App = () => {
       setLevels(newLevels);
 
       if (newLevels.length === 2) {
-        const resultLevelMix2 = getResultLevelMix2(newLevels);
+        const resultLevelMix2 = getResultLevelMix2(newLevels, mode);
 
         setLevel(resultLevelMix2);
         const levelSave = resultLevelMix2;
@@ -170,7 +170,7 @@ const App = () => {
       }
     }
 
-    const levelsText = getLevelsText(newLevels);
+    const levelsText = getLevelsText(newLevels, mode);
     additionalLogs.push(levelsText);
     setLogs([...logs, ...additionalLogs]);
   };

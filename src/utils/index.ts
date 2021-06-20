@@ -12,7 +12,7 @@ import {
   VALID_CODES,
   MIX_MODE_MSG
 } from '../constants';
-import { Color, Progress, Save, Puzzle, RupeeColor } from '../types';
+import { Color, Progress, Save, Mode, Puzzle, RupeeColor } from '../types';
 
 const getPlural = (str: string, count: number) => {
   if (count === 1) return str;
@@ -116,33 +116,43 @@ const getNewLevelsMix3 = (levels: Color[], level: Color) => {
   return hasLevel ? levels.filter((l) => l !== level) : [level, levels[0]];
 };
 
-const getLevelsText = (levels: Color[]) => {
+const getLevelsText = (levels: Color[], mode: Mode) => {
   if (levels.length === 0) return 'No color selected';
   if (levels.length === 1) return `Color ${levels[0]} is selected`;
 
-  const mix = levels.length === 2 ? getResultLevelMix2(levels) : getResultLevelMix3(levels);
+  const mix = levels.length === 2 ? getResultLevelMix2(levels, mode) : getResultLevelMix3(levels, mode);
 
   return `Colors ${levels.join(' ')} are selected: mix is ${mix}`;
 };
 
-const getResultLevelMix2 = (levels: Color[]) => {
+const getResultLevelMix2 = (levels: Color[], mode: Mode) => {
   if (levels.length !== 2) return undefined;
 
   const { Red, Green, Blue, Cyan, Magenta, Yellow } = Color;
 
-  if (levels.includes(Red) && levels.includes(Green)) return Yellow;
-  if (levels.includes(Green) && levels.includes(Blue)) return Cyan;
-  if (levels.includes(Red) && levels.includes(Blue)) return Magenta;
+  if (mode === Mode.Additive) {
+    if (levels.includes(Red) && levels.includes(Green)) return Yellow;
+    if (levels.includes(Green) && levels.includes(Blue)) return Cyan;
+    if (levels.includes(Red) && levels.includes(Blue)) return Magenta;
+  }
+
+  if (mode === Mode.Subtractive) {
+    if (levels.includes(Magenta) && levels.includes(Cyan)) return Blue;
+    if (levels.includes(Cyan) && levels.includes(Yellow)) return Green;
+    if (levels.includes(Magenta) && levels.includes(Yellow)) return Red;
+  }
 
   return undefined;
 };
 
-const getResultLevelMix3 = (levels: Color[]) => {
+const getResultLevelMix3 = (levels: Color[], mode: Mode) => {
   if (levels.length !== 3) return undefined;
 
-  const { Red, Green, Blue, White } = Color;
+  const { Black, Red, Green, Blue, White, Cyan, Magenta, Yellow } = Color;
 
-  if (levels.includes(Red) && levels.includes(Green) && levels.includes(Blue)) return White;
+  if (mode === Mode.Additive && levels.includes(Red) && levels.includes(Green) && levels.includes(Blue)) return White;
+  if (mode === Mode.Subtractive && levels.includes(Magenta) && levels.includes(Cyan) && levels.includes(Yellow))
+    return Black;
 
   return undefined;
 };
