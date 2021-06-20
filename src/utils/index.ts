@@ -189,19 +189,19 @@ const get4DigitsCode = () => {
 };
 
 const getCodesInvalidMsg = (code: string) => {
-  if (code === 'FAITHY') return 'Nice try though Faithychouchou, hehe';
   if (code === 'BIATCH') return `Also, that's not nice. You think you're Snoop Dogg?`;
-  if (code === 'PELLAS') return `Nice try but that would be too easy`;
+  if (code === 'CHRIST') return `Nobody is coming to save you on this puzzle game`;
   if (code === 'COLORS') return `Just play the game, you'll see lots of colors :)`;
+  if (code === 'FAITHY') return 'Nice try though Faithychouchou, hehe';
+  if (code === 'HELPME') return `No thank you, I don't want to help you`;
   if (code === 'KONAMI') return `I'll give you a clue though: blue is Konami Code`;
-  if (['DRAGON', 'YELLOW'].includes(code)) return `A clue though: yellow is from Spyro 2, Idol Springs`;
+  if (code === 'PELLAS') return `Nice try but that would be too easy`;
+  if (code === 'PLEASE') return `Just play the game. Please and thank you!`;
   if (code === 'POWERS') return `You have some powers, but apparently guessing cheat codes is not one of them`;
   if (code === 'PUZZLE') return `You look puzzled though, that's too bad`;
   if (code === 'RANDOM') return `Maybe stop trying to guess cheat codes randomly?`;
-  if (code === 'HELPME') return `No thank you, I don't want to help you`;
-  if (code === 'PLEASE') return `Just play the game. Please and thank you!`;
+  if (['DRAGON', 'YELLOW'].includes(code)) return `A clue though: yellow is from Spyro 2, Idol Springs`;
   if (code === 'THANKS') return `I didn't load any save, but ok you're welcome I guess?`;
-  if (code === 'CHRIST') return `Nobody is coming to save you on this puzzle game`;
 
   return '';
 };
