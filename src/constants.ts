@@ -2,6 +2,7 @@ export const CODE_LENGTH = 6;
 export const MIX_ONE_COLOR_MSG = 'You can select a color!';
 export const MIX_TWO_COLORS_MSG = 'You completed floor 1! You can mix 2 colors!';
 export const MIX_THREE_COLORS_MSG = 'You completed both floor 1 and floor 2! You can mix 3 colors!';
+export const MIX_MODE_MSG = `You completed floors 1, 2 and 3! You can mix 3 colors with a different mixing! (subtractive)`;
 export const RUPEES_INITIAL_COUNT = 1;
 export const CODE_RED = 'BEDBAD';
 export const CODE_BLUE = 'DABBED';

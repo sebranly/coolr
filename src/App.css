@@ -6,6 +6,7 @@
 .circle {
   margin: 5px;
   border-radius: 50%;
+  border: 1px solid grey;
   height: var(--avatar-size);
   text-align: center;
   width: var(--avatar-size);
@@ -45,7 +46,7 @@ body {
 .main {
   text-align: center;
   font-family: 'Courier';
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .block {
@@ -342,4 +343,14 @@ body {
 .chest:hover {
   cursor: pointer;
   font-weight: bold;
+}
+
+.additive {
+  color: black;
+  background-color: white;
+}
+
+.subtractive {
+  color: white;
+  background-color: black;
 }

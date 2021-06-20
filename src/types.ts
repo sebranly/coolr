@@ -5,7 +5,13 @@ export enum Color {
   Cyan = 'cyan',
   Magenta = 'magenta',
   Yellow = 'yellow',
-  White = 'white'
+  White = 'white',
+  Black = 'black'
+}
+
+export enum Mode {
+  Additive = 'additive',
+  Subtractive = 'subtractive'
 }
 
 export enum Progress {
@@ -22,6 +28,7 @@ export interface Save {
   magenta: Progress;
   yellow: Progress;
   white: Progress;
+  black: Progress;
 }
 
 export enum Puzzle {
