@@ -13,6 +13,8 @@ import { Konami } from './components/Konami';
 import { SleepingDogs } from './components/SleepingDogs';
 import { Spyro } from './components/Spyro';
 import { Zelda } from './components/Zelda';
+import { Confettis } from './components/Confettis';
+import { Credits } from './components/Credits';
 
 import classnames from 'classnames';
 import {
@@ -24,13 +26,23 @@ import {
   getNewLevelsMix2,
   getResultLevelMix2,
   getResultLevelMix3,
+  getColorBackgroundPuzzle,
   canMix3,
   getNewLevelsMix3,
   isValidCode,
   getColorPuzzle,
   getCodesInvalidMsg
 } from './utils';
-import { CODE_BLUE, CODE_CYAN, CODE_GREEN, CODE_LENGTH, CODE_MAGENTA, CODE_RED, CODE_YELLOW } from './constants';
+import {
+  CODE_WHITE,
+  CODE_BLUE,
+  CODE_CYAN,
+  CODE_GREEN,
+  CODE_LENGTH,
+  CODE_MAGENTA,
+  CODE_RED,
+  CODE_YELLOW
+} from './constants';
 
 const App = () => {
   const [mode, setMode] = React.useState(Mode.Additive);
@@ -46,7 +58,7 @@ const App = () => {
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
   // TODO: change
-  const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Credits);
 
   const onRejectLevel = (level: Color) => () => {
     const floorIndex = mode === Mode.Additive ? 1 : 2;
@@ -84,6 +96,7 @@ const App = () => {
           if (isValidCode(newCode)) {
             const newLogs = [...logs, `Success: cheat code ${newCode} is valid`, 'Save has been loaded'];
             const floor1 = { red: Progress.Done, green: Progress.Done, blue: Progress.Done };
+            const floor2 = { cyan: Progress.Done, magenta: Progress.Done, yellow: Progress.Done };
 
             if (newCode === CODE_RED) {
               setSave({ ...save, red: Progress.Done });
@@ -103,6 +116,9 @@ const App = () => {
             } else if (newCode === CODE_YELLOW) {
               setSave({ ...save, ...floor1, yellow: Progress.Done });
               newLogs.push('Colors red green blue yellow are completed');
+            } else if (newCode === CODE_WHITE) {
+              setSave({ ...save, ...floor1, ...floor2, white: Progress.Done });
+              newLogs.push('Colors red green blue cyan magenta yellow white are completed');
             }
 
             setLogs(newLogs);
@@ -199,10 +215,11 @@ const App = () => {
   const renderSubheader = () => {
     const subheader = getPuzzleText(puzzle);
     const colorClass = getColorPuzzle(puzzle);
+    const backgroundColorClass = getColorBackgroundPuzzle(puzzle);
 
     return (
       <h2 className="italic">
-        <div className={`inline ${colorClass}`}>{subheader.charAt(0)}</div>
+        <div className={`inline ${colorClass} bg-${backgroundColorClass}`}>{subheader.charAt(0)}</div>
         {subheader.substring(1)}
       </h2>
     );
@@ -248,7 +265,12 @@ const App = () => {
                 )}
               </>
             )}
-
+            {puzzle === Puzzle.Confettis && (
+              <Confettis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
+            {puzzle === Puzzle.Credits && (
+              <Credits logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
             {puzzle === Puzzle.DinoCrisis && (
               <DinoCrisis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
@@ -273,18 +295,20 @@ const App = () => {
               </div>
             )}
           </div>
-          <div className="flex-one margin">
-            <Notes puzzle={puzzle} logs={logs} save={save} />
-            {puzzle === Puzzle.Menu && <br />}
-            {puzzle === Puzzle.Menu && (
-              <input className="text-center" value={code} type="text" onChange={onChangeCode} />
-            )}
-            {save.white === Progress.Done && (
-              <div className={classesMixing} onClick={toggleMode}>
-                Toggle Mixing
-              </div>
-            )}
-          </div>
+          {puzzle !== Puzzle.Confettis && (
+            <div className="flex-one margin">
+              <Notes puzzle={puzzle} logs={logs} save={save} />
+              {puzzle === Puzzle.Menu && <br />}
+              {puzzle === Puzzle.Menu && (
+                <input className="text-center" value={code} type="text" onChange={onChangeCode} />
+              )}
+              {save.white === Progress.Done && puzzle === Puzzle.Menu && (
+                <div className={classesMixing} onClick={toggleMode}>
+                  Toggle Mixing
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </HelmetProvider>

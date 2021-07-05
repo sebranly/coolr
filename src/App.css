@@ -340,6 +340,10 @@ body {
   color: #decade
 }
 
+.defbae {
+  color: #defbae
+}
+
 .chest:hover {
   cursor: pointer;
   font-weight: bold;
@@ -353,4 +357,9 @@ body {
 .subtractive {
   color: white;
   background-color: black;
+}
+
+.clickable-title:hover {
+  cursor: pointer;
+  font-weight: bold;;
 }
