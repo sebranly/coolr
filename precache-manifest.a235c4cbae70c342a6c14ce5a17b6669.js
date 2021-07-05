@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d8bd681b2e7ab005d62fbb834360803d",
+    "revision": "1d1c1887fc5573d7f06cd76ce7183fc8",
     "url": "/coolr/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coolr/static/css/2.9233ae65.chunk.css"
   },
   {
-    "revision": "76c7a949106b99b5b519",
+    "revision": "72c10688a97e7de5f74d",
     "url": "/coolr/static/css/main.aa1a6fbc.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coolr/static/js/2.403b95af.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "76c7a949106b99b5b519",
-    "url": "/coolr/static/js/main.1c5c652f.chunk.js"
+    "revision": "72c10688a97e7de5f74d",
+    "url": "/coolr/static/js/main.87c23e8f.chunk.js"
   },
   {
     "revision": "d3b2ccd0ed2141907619",
