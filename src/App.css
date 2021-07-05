@@ -354,3 +354,8 @@ body {
   color: white;
   background-color: black;
 }
+
+.clickable-title:hover {
+  cursor: pointer;
+  font-weight: bold;;
+}

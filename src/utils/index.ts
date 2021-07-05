@@ -219,6 +219,17 @@ const get4DigitsCode = () => {
   return code;
 };
 
+const getNextColorGuess = (color: Color) => {
+  const { Black, Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
+  if (color === Red) return Green;
+  if (color === Green) return Blue;
+  if (color === Blue) return Cyan;
+  if (color === Cyan) return Magenta;
+  if (color === Magenta) return Yellow;
+
+  return Red;
+};
+
 const getCodesInvalidMsg = (code: string) => {
   if (code === 'BIATCH') return `Also, that's not nice. You think you're Snoop Dogg?`;
   if (code === 'CHRIST') return `Nobody is coming to save you on this puzzle game`;
@@ -275,9 +286,11 @@ const getColorBackgroundPuzzle = (puzzle: Puzzle) => {
 
 const getPuzzleColor = (level: Color) => {
   const { Black, Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Confettis, Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
+  const { Credits, Confettis, Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
 
   switch (level) {
+    case White:
+      return Credits;
     case Black:
       return Confettis;
     case Blue:
@@ -298,9 +311,11 @@ const getPuzzleColor = (level: Color) => {
 };
 
 const getPuzzleText = (puzzle: Puzzle) => {
-  const { Confettis, Menu, DinoCrisis, Hexa, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
+  const { Credits, Confettis, Menu, DinoCrisis, Hexa, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
 
   switch (puzzle) {
+    case Credits:
+      return 'What is this?';
     case Confettis:
       return 'Bravo';
     case Menu:
@@ -353,6 +368,7 @@ const getCodes = (save: Save) => {
 
 export {
   canUseSubtractiveMix,
+  getNextColorGuess,
   getColorPuzzle,
   getCodes,
   getCodesInvalidMsg,

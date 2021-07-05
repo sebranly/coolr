@@ -14,6 +14,7 @@ import { SleepingDogs } from './components/SleepingDogs';
 import { Spyro } from './components/Spyro';
 import { Zelda } from './components/Zelda';
 import { Confettis } from './components/Confettis';
+import { Credits } from './components/Credits';
 
 import classnames from 'classnames';
 import {
@@ -48,7 +49,7 @@ const App = () => {
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
   // TODO: change
-  const [puzzle, setPuzzle] = React.useState(Puzzle.Confettis);
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Credits);
 
   const onRejectLevel = (level: Color) => () => {
     const floorIndex = mode === Mode.Additive ? 1 : 2;
@@ -254,6 +255,9 @@ const App = () => {
             {puzzle === Puzzle.Confettis && (
               <Confettis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
+            {puzzle === Puzzle.Credits && (
+              <Credits logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
             {puzzle === Puzzle.DinoCrisis && (
               <DinoCrisis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
@@ -285,7 +289,7 @@ const App = () => {
               {puzzle === Puzzle.Menu && (
                 <input className="text-center" value={code} type="text" onChange={onChangeCode} />
               )}
-              {save.white === Progress.Done && (
+              {save.white === Progress.Done && puzzle === Puzzle.Menu && (
                 <div className={classesMixing} onClick={toggleMode}>
                   Toggle Mixing
                 </div>
