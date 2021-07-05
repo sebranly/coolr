@@ -18,6 +18,8 @@ const Confettis: React.FC<ConfettisProps> = (props) => {
   const { className, setSave, save, setPuzzle, setLogs, logs } = props;
   const { width, height } = useWindowSize();
 
+  React.useEffect(() => setSave({ ...save, black: Progress.Done }), []);
+
   return (
     <div className="flex-one margin">
       <Confetti width={width} height={height} />
