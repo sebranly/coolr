@@ -108,10 +108,10 @@ const Credits: React.FC<CreditsProps> = (props) => {
           The Konami Code | Gaming Historian
         </div>
         <div className={`clickable-title ${guesses[4]}`} onClick={() => onClick(4)}>
-          OoT Treasure Chest Game 2nd Try No Lens
+          Dino Crisis 1 -= Batteries Puzzle =-
         </div>
         <div className={`clickable-title ${guesses[5]}`} onClick={() => onClick(5)}>
-          Dino Crisis 1 -= Batteries Puzzle =-
+          OoT Treasure Chest Game 2nd Try No Lens
         </div>
       </div>
     </div>
