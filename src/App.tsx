@@ -13,6 +13,7 @@ import { Konami } from './components/Konami';
 import { SleepingDogs } from './components/SleepingDogs';
 import { Spyro } from './components/Spyro';
 import { Zelda } from './components/Zelda';
+import { Confettis } from './components/Confettis';
 
 import classnames from 'classnames';
 import {
@@ -24,6 +25,7 @@ import {
   getNewLevelsMix2,
   getResultLevelMix2,
   getResultLevelMix3,
+  getColorBackgroundPuzzle,
   canMix3,
   getNewLevelsMix3,
   isValidCode,
@@ -46,7 +48,7 @@ const App = () => {
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
   // TODO: change
-  const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Confettis);
 
   const onRejectLevel = (level: Color) => () => {
     const floorIndex = mode === Mode.Additive ? 1 : 2;
@@ -199,10 +201,11 @@ const App = () => {
   const renderSubheader = () => {
     const subheader = getPuzzleText(puzzle);
     const colorClass = getColorPuzzle(puzzle);
+    const backgroundColorClass = getColorBackgroundPuzzle(puzzle);
 
     return (
       <h2 className="italic">
-        <div className={`inline ${colorClass}`}>{subheader.charAt(0)}</div>
+        <div className={`inline ${colorClass} bg-${backgroundColorClass}`}>{subheader.charAt(0)}</div>
         {subheader.substring(1)}
       </h2>
     );
@@ -248,7 +251,9 @@ const App = () => {
                 )}
               </>
             )}
-
+            {puzzle === Puzzle.Confettis && (
+              <Confettis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
+            )}
             {puzzle === Puzzle.DinoCrisis && (
               <DinoCrisis logs={logs} setPuzzle={setPuzzle} setLogs={setLogs} setSave={setSave} save={save} />
             )}
@@ -273,18 +278,20 @@ const App = () => {
               </div>
             )}
           </div>
-          <div className="flex-one margin">
-            <Notes puzzle={puzzle} logs={logs} save={save} />
-            {puzzle === Puzzle.Menu && <br />}
-            {puzzle === Puzzle.Menu && (
-              <input className="text-center" value={code} type="text" onChange={onChangeCode} />
-            )}
-            {save.white === Progress.Done && (
-              <div className={classesMixing} onClick={toggleMode}>
-                Toggle Mixing
-              </div>
-            )}
-          </div>
+          {puzzle !== Puzzle.Confettis && (
+            <div className="flex-one margin">
+              <Notes puzzle={puzzle} logs={logs} save={save} />
+              {puzzle === Puzzle.Menu && <br />}
+              {puzzle === Puzzle.Menu && (
+                <input className="text-center" value={code} type="text" onChange={onChangeCode} />
+              )}
+              {save.white === Progress.Done && (
+                <div className={classesMixing} onClick={toggleMode}>
+                  Toggle Mixing
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </HelmetProvider>

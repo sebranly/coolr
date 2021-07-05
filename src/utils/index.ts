@@ -242,10 +242,12 @@ const getCodesInvalidMsg = (code: string) => {
 };
 
 const getColorPuzzle = (puzzle: Puzzle) => {
-  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
+  const { Black, Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
+  const { Confettis, Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
 
   switch (puzzle) {
+    case Confettis:
+      return Black;
     case Konami:
       return Blue;
     case DinoCrisis:
@@ -263,11 +265,21 @@ const getColorPuzzle = (puzzle: Puzzle) => {
   }
 };
 
+const getColorBackgroundPuzzle = (puzzle: Puzzle) => {
+  const { Confettis } = Puzzle;
+  const { Black, White } = Color;
+
+  if (puzzle === Confettis) return White;
+  return Black;
+};
+
 const getPuzzleColor = (level: Color) => {
-  const { Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
-  const { Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
+  const { Black, Red, Green, Blue, Magenta, Yellow, Cyan, White } = Color;
+  const { Confettis, Menu, DinoCrisis, Hexa, Konami, Zelda, SleepingDogs, Spyro } = Puzzle;
 
   switch (level) {
+    case Black:
+      return Confettis;
     case Blue:
       return Konami;
     case Green:
@@ -286,9 +298,11 @@ const getPuzzleColor = (level: Color) => {
 };
 
 const getPuzzleText = (puzzle: Puzzle) => {
-  const { Menu, DinoCrisis, Hexa, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
+  const { Confettis, Menu, DinoCrisis, Hexa, Konami, SleepingDogs, Spyro, Zelda } = Puzzle;
 
   switch (puzzle) {
+    case Confettis:
+      return 'Bravo';
     case Menu:
       return 'Menu';
     case DinoCrisis:
@@ -362,5 +376,6 @@ export {
   getRupees,
   getRupeesColor,
   get4DigitsCode,
-  isValidCode
+  isValidCode,
+  getColorBackgroundPuzzle
 };

@@ -12,11 +12,13 @@
     "lodash": "^4.17.20",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
+    "react-confetti": "^6.0.1",
     "react-device-detect": "^1.14.0",
     "react-dom": "^16.14.0",
     "react-helmet-async": "^1.0.7",
     "react-icons": "^3.11.0",
     "react-scripts": "3.4.3",
+    "react-use": "^17.2.4",
     "typescript": "^3.9.9"
   },
   "scripts": {
