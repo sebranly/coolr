@@ -57,8 +57,7 @@ const App = () => {
   const [save, setSave] = React.useState(getDefaultSave());
   const [levels, setLevels] = React.useState<Color[]>([]);
   const [level, setLevel] = React.useState<Color | undefined>();
-  // TODO: change
-  const [puzzle, setPuzzle] = React.useState(Puzzle.Credits);
+  const [puzzle, setPuzzle] = React.useState(Puzzle.Menu);
 
   const onRejectLevel = (level: Color) => () => {
     const floorIndex = mode === Mode.Additive ? 1 : 2;

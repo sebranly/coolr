@@ -23,7 +23,6 @@ const getPlural = (str: string, count: number) => {
 const getDefaultSave = () => {
   const { Available, Hidden, Done } = Progress;
 
-  // TODO: change
   const defaultSave: Save = {
     red: Available,
     green: Available,
