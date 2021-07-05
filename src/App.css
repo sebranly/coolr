@@ -340,6 +340,10 @@ body {
   color: #decade
 }
 
+.defbae {
+  color: #defbae
+}
+
 .chest:hover {
   cursor: pointer;
   font-weight: bold;

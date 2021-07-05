@@ -33,7 +33,16 @@ import {
   getColorPuzzle,
   getCodesInvalidMsg
 } from './utils';
-import { CODE_BLUE, CODE_CYAN, CODE_GREEN, CODE_LENGTH, CODE_MAGENTA, CODE_RED, CODE_YELLOW } from './constants';
+import {
+  CODE_WHITE,
+  CODE_BLUE,
+  CODE_CYAN,
+  CODE_GREEN,
+  CODE_LENGTH,
+  CODE_MAGENTA,
+  CODE_RED,
+  CODE_YELLOW
+} from './constants';
 
 const App = () => {
   const [mode, setMode] = React.useState(Mode.Additive);
@@ -87,6 +96,7 @@ const App = () => {
           if (isValidCode(newCode)) {
             const newLogs = [...logs, `Success: cheat code ${newCode} is valid`, 'Save has been loaded'];
             const floor1 = { red: Progress.Done, green: Progress.Done, blue: Progress.Done };
+            const floor2 = { cyan: Progress.Done, magenta: Progress.Done, yellow: Progress.Done };
 
             if (newCode === CODE_RED) {
               setSave({ ...save, red: Progress.Done });
@@ -106,6 +116,9 @@ const App = () => {
             } else if (newCode === CODE_YELLOW) {
               setSave({ ...save, ...floor1, yellow: Progress.Done });
               newLogs.push('Colors red green blue yellow are completed');
+            } else if (newCode === CODE_WHITE) {
+              setSave({ ...save, ...floor1, ...floor2, white: Progress.Done });
+              newLogs.push('Colors red green blue cyan magenta yellow white are completed');
             }
 
             setLogs(newLogs);

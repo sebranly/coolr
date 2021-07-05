@@ -3,6 +3,7 @@ import {
   CODE_BLUE,
   CODE_GREEN,
   CODE_CYAN,
+  CODE_WHITE,
   CODE_LENGTH,
   CODE_MAGENTA,
   CODE_YELLOW,
@@ -24,14 +25,14 @@ const getDefaultSave = () => {
 
   // TODO: change
   const defaultSave: Save = {
-    red: Done,
-    green: Done,
-    blue: Done,
-    cyan: Done,
-    magenta: Done,
-    yellow: Done,
-    white: Done,
-    black: Available
+    red: Available,
+    green: Available,
+    blue: Available,
+    cyan: Hidden,
+    magenta: Hidden,
+    yellow: Hidden,
+    white: Hidden,
+    black: Hidden
   };
 
   return defaultSave;
@@ -344,8 +345,14 @@ const isValidCode = (code: string) => {
 const getCodes = (save: Save) => {
   const codes: string[] = [];
 
-  const { red, green, blue, cyan, magenta, yellow } = save;
+  const { red, green, blue, cyan, magenta, yellow, white } = save;
   const { Done } = Progress;
+
+  if (white === Done) {
+    codes.push(CODE_WHITE);
+
+    return codes;
+  }
 
   if (cyan === Done || magenta === Done || yellow === Done) {
     if (cyan === Done) codes.push(CODE_CYAN);
